@@ -1,16 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Faustina:wght@500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Faustina:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@700&display=swap");
 @import "tailwindcss";
 
 :root {
-  --background: #110C29;
+  --background: #110c29;
   --foreground: #050505;
   --priColor: #ffffff;
   --secColor: #aa7dfc;
 }
 
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
   font-family: "Faustina", serif;
   font-optical-sizing: auto;
@@ -21,4 +20,10 @@
 .bg-main {
   background-color: var(--background);
   color: var(--priColor);
+}
+
+.h-font {
+  font-family: "Ubuntu", "Faustina", sans-serif;
+  font-weight: 700;
+  font-style: normal;
 }
