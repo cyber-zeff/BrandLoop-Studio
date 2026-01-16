@@ -26,7 +26,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="relative min-h-screen bg-[#110C29] text-white overflow-x-hidden">
         {/* <div className="fixed inset-0 -z-10 bg-[radial-gradient(600px_at_0%_0%,rgba(120,90,255,0.18),transparent_40%),radial-gradient(600px_at_100%_100%,rgba(80,200,255,0.15),transparent_40%)]" /> */}
-        <div className="fixed inset-0 -z-10 bg-[#110C29] bg-[radial-gradient(1400px_900px_at_50%_0%,rgba(130,100,255,0.12),rgba(17,12,41,0.0)_65%)]"/>
+        <div className="fixed inset-0 -z-10 bg-[#110C29] bg-[radial-gradient(800px_900px_at_50%_0%,rgba(130,100,255,0.12),rgba(17,12,41,0.0)_65%)]"/>
 
 
         {children}
