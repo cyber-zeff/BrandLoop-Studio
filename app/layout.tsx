@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import Preloader from "./components/Preloader";
 
 export const metadata: Metadata = {
   title: "BrandLoop Studio",
@@ -13,12 +14,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="relative min-h-screen bg-[#050505] text-white overflow-x-hidden">
+      <body>
         {/* <div className="fixed inset-0 -z-10 bg-[radial-gradient(600px_at_0%_0%,rgba(120,90,255,0.18),transparent_40%),radial-gradient(600px_at_100%_100%,rgba(80,200,255,0.15),transparent_40%)]" /> */}
-        <div className="fixed inset-0 -z-10 bg-[radial-gradient(1200px_900px_at_50%_20%,rgba(130,100,255,0.18),rgba(17,12,41,0.0)_90%)]"/>
-
-
-        {children}
+        {/* <div className="fixed inset-0 -z-10 bg-[radial-gradient(1200px_900px_at_50%_20%,rgba(130,100,255,0.18),rgba(17,12,41,0.0)_90%)]"/> */}
+        {/* {children} */}
+        <Preloader>
+          {children}
+        </Preloader>
       </body>
     </html>
   );
