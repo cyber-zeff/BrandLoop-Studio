@@ -40,12 +40,13 @@ export default function Preloader({ children }: { children: React.ReactNode }) {
         <>
             <style>{`
                 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Geist+Mono:wght@300;400&display=swap');
+                @import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@700&display=swap");
 
                 .preloader-root {
                     position: fixed;
                     inset: 0;
                     z-index: 9999;
-                    background: #0a0a0a;
+                    background: #110c29;
                     display: flex;
                     flex-direction: column;
                     align-items: center;
