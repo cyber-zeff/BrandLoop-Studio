@@ -222,8 +222,8 @@ export default function Preloader({ children }: { children: React.ReactNode }) {
                 <div className="corner corner-br" />
 
                 <div style={{ textAlign: "center", position: "relative" }}>
-                    <div className="agency-name flicker" aria-label="BrandLoop Studio">
-                        {"BrandLoop Studio".split("").map((char, i) => (
+                    <div className="agency-name flicker" aria-label="brandloop.studio">
+                        {"brandloop.studio".split("").map((char, i) => (
                             <span className="char" key={i}>
                                 {char === " " ? "\u00A0" : char}
                             </span>
