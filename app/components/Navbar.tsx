@@ -125,7 +125,7 @@ export default function Navbar() {
         }
 
         .bl-nav.scrolled {
-          background: rgba(10, 10, 10, 0.88);
+          background: #110c298c;
           backdrop-filter: blur(14px);
           -webkit-backdrop-filter: blur(14px);
           border-color: rgba(255,255,255,0.07);
@@ -195,7 +195,7 @@ export default function Navbar() {
           display: block;
           position: relative;
           padding: 6px 14px;
-          font-size: 10px;
+          font-size: 12px;
           letter-spacing: 0.22em;
           text-transform: uppercase;
           color: rgba(255,255,255,0.45);
@@ -277,7 +277,7 @@ export default function Navbar() {
         }
 
         .clock-tz {
-          font-size: 7px;
+          font-size: 8px;
           letter-spacing: 0.2em;
           color: rgba(255,255,255,0.2);
         }
@@ -287,7 +287,7 @@ export default function Navbar() {
           position: relative;
           padding: 8px 20px;
           font-family: 'Geist Mono', monospace;
-          font-size: 9px;
+          font-size: 10px;
           letter-spacing: 0.28em;
           text-transform: uppercase;
           color: #0a0a0a;
