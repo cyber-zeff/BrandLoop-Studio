@@ -2,277 +2,296 @@
 
 import { useState, useRef, useEffect } from "react";
 
-// ─── Data ────────────────────────────────────────────────────────────────────
+// ─── Data ─────────────────────────────────────────────────────────────────────
 
 const CATEGORIES = [
-    { id: "all", label: "all drops" },
-    { id: "graphic", label: "visuals" },
-    { id: "video", label: "reels" },
-    { id: "web", label: "builds" },
+  { id: "all",     label: "all drops" },
+  { id: "graphic", label: "visuals"   },
+  { id: "video",   label: "reels"     },
+  { id: "web",     label: "builds"    },
 ] as const;
 
 type CatId = "all" | "graphic" | "video" | "web";
 
 interface Project {
-    id: number;
-    cat: "graphic" | "video" | "web";
-    title: string;
-    sub: string;
-    tag: string;
-    year: string;
-    size: "big" | "small"; // big = spans 2 cols on desktop
-    accent: string;        // CSS colour
-    videoUrl?: string;     // for video projects, embed or external link
-    // decorative gradient stops
-    grad: [string, string];
+  id: number;
+  cat: "graphic" | "video" | "web";
+  title: string;
+  sub: string;
+  tag: string;
+  year: string;
+  size: "big" | "small";
+  accent: string;
+  videoUrl?: string;
+  grad: [string, string];
 }
 
 const PROJECTS: Project[] = [
-    // ── Graphic ─────────────────────────────────
-    {
-        id: 1,
-        cat: "graphic",
-        title: "Void Apparel",
-        sub: "Full brand identity — logo, palette, motion marks",
-        tag: "Brand Identity",
-        year: "2024",
-        size: "big",
-        accent: "#ffffff",
-        grad: ["#1a1a1a", "#0a0a0a"],
-    },
-    {
-        id: 2,
-        cat: "graphic",
-        title: "Noor x Bloom",
-        sub: "Wedding stationery suite + social kit",
-        tag: "Print & Digital",
-        year: "2025",
-        size: "small",
-        accent: "#c9a96e",
-        grad: ["#1c1509", "#0a0a0a"],
-    },
-    {
-        id: 3,
-        cat: "graphic",
-        title: "Pulse Energy",
-        sub: "Packaging design + launch campaign assets",
-        tag: "Packaging",
-        year: "2025",
-        size: "small",
-        accent: "#4fffb0",
-        grad: ["#001a0e", "#0a0a0a"],
-    },
-    // ── Video ────────────────────────────────────
-    {
-        id: 4,
-        cat: "video",
-        title: "Solstice Reel",
-        sub: "60s brand film — shot, cut & colour graded",
-        tag: "Brand Film",
-        year: "2024",
-        size: "big",
-        accent: "#ff6b35",
-        grad: ["#1a0800", "#0a0a0a"],
-        videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    },
-    {
-        id: 5,
-        cat: "video",
-        title: "ByteSnack",
-        sub: "15 x short-form reels for Instagram & TikTok",
-        tag: "Social Content",
-        year: "2025",
-        size: "small",
-        accent: "#e040fb",
-        grad: ["#12001a", "#0a0a0a"],
-        videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    },
-    {
-        id: 6,
-        cat: "video",
-        title: "Kinetic Type",
-        sub: "Motion typography series for product drops",
-        tag: "Motion Design",
-        year: "2025",
-        size: "small",
-        accent: "#40c4ff",
-        grad: ["#00101a", "#0a0a0a"],
-        videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    },
-    // ── Web / SaaS ───────────────────────────────
-    {
-        id: 7,
-        cat: "web",
-        title: "Flo Dashboard",
-        sub: "SaaS analytics platform — design system + full frontend build",
-        tag: "SaaS / Web App",
-        year: "2025",
-        size: "big",
-        accent: "#4fffb0",
-        grad: ["#001a0e", "#0a0a0a"],
-    },
-    {
-        id: 8,
-        cat: "web",
-        title: "Clerq",
-        sub: "AI invoicing SaaS — landing page + onboarding flow",
-        tag: "SaaS Landing",
-        year: "2025",
-        size: "small",
-        accent: "#ffffff",
-        grad: ["#111111", "#0a0a0a"],
-    },
-    {
-        id: 9,
-        cat: "web",
-        title: "Orbit CMS",
-        sub: "Headless CMS marketing site with interactive 3D hero",
-        tag: "Marketing Site",
-        year: "2024",
-        size: "small",
-        accent: "#c9a96e",
-        grad: ["#1c1509", "#0a0a0a"],
-    },
+  // ── Graphic ──────────────────────────────────
+  {
+    id: 1,
+    cat: "graphic",
+    title: "Void Apparel",
+    sub: "Full brand identity — logo, palette, motion marks",
+    tag: "Brand Identity",
+    year: "2024",
+    size: "big",
+    accent: "#AA7DFC",
+    grad: ["#1d1040", "#110C29"],
+  },
+  {
+    id: 2,
+    cat: "graphic",
+    title: "Noor x Bloom",
+    sub: "Wedding stationery suite + social kit",
+    tag: "Print & Digital",
+    year: "2025",
+    size: "small",
+    accent: "#c9a96e",
+    grad: ["#1c1209", "#110C29"],
+  },
+  {
+    id: 3,
+    cat: "graphic",
+    title: "Pulse Energy",
+    sub: "Packaging design + launch campaign assets",
+    tag: "Packaging",
+    year: "2025",
+    size: "small",
+    accent: "#AA7DFC",
+    grad: ["#160d35", "#110C29"],
+  },
+  // ── Video ─────────────────────────────────────
+  {
+    id: 4,
+    cat: "video",
+    title: "Solstice Reel",
+    sub: "60s brand film — shot, cut & colour graded",
+    tag: "Brand Film",
+    year: "2024",
+    size: "big",
+    accent: "#ff6b35",
+    grad: ["#200d04", "#110C29"],
+    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+  },
+  {
+    id: 5,
+    cat: "video",
+    title: "ByteSnack",
+    sub: "15 x short-form reels for Instagram & TikTok",
+    tag: "Social Content",
+    year: "2025",
+    size: "small",
+    accent: "#AA7DFC",
+    grad: ["#180922", "#110C29"],
+    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+  },
+  {
+    id: 6,
+    cat: "video",
+    title: "Kinetic Type",
+    sub: "Motion typography series for product drops",
+    tag: "Motion Design",
+    year: "2025",
+    size: "small",
+    accent: "#40c4ff",
+    grad: ["#04101a", "#110C29"],
+    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+  },
+  // ── Web / SaaS ────────────────────────────────
+  {
+    id: 7,
+    cat: "web",
+    title: "Flo Dashboard",
+    sub: "SaaS analytics platform — design system + full frontend build",
+    tag: "SaaS / Web App",
+    year: "2025",
+    size: "big",
+    accent: "#AA7DFC",
+    grad: ["#1a0e3a", "#110C29"],
+  },
+  {
+    id: 8,
+    cat: "web",
+    title: "Clerq",
+    sub: "AI invoicing SaaS — landing page + onboarding flow",
+    tag: "SaaS Landing",
+    year: "2025",
+    size: "small",
+    accent: "#ffffff",
+    grad: ["#181230", "#110C29"],
+  },
+  {
+    id: 9,
+    cat: "web",
+    title: "Orbit CMS",
+    sub: "Headless CMS marketing site with interactive 3D hero",
+    tag: "Marketing Site",
+    year: "2024",
+    size: "small",
+    accent: "#c9a96e",
+    grad: ["#1c1209", "#110C29"],
+  },
 ];
 
-// ─── Video Modal ─────────────────────────────────────────────────────────────
+// ─── Video Modal ──────────────────────────────────────────────────────────────
 
 function VideoModal({ url, onClose }: { url: string; onClose: () => void }) {
-    useEffect(() => {
-        const handler = (e: KeyboardEvent) => e.key === "Escape" && onClose();
-        window.addEventListener("keydown", handler);
-        return () => window.removeEventListener("keydown", handler);
-    }, [onClose]);
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [onClose]);
 
-    return (
-        <div className="vid-overlay" onClick={onClose}>
-            <div className="vid-modal" onClick={(e) => e.stopPropagation()}>
-                <button className="vid-close" onClick={onClose}>✕</button>
-                <iframe
-                    src={url + "?autoplay=1"}
-                    allow="autoplay; fullscreen"
-                    allowFullScreen
-                    style={{ width: "100%", height: "100%", border: "none" }}
-                />
-            </div>
-        </div>
-    );
+  return (
+    <div className="vid-overlay" onClick={onClose}>
+      <div className="vid-modal" onClick={(e) => e.stopPropagation()}>
+        <button className="vid-close" onClick={onClose}>✕</button>
+        <iframe
+          src={url + "?autoplay=1"}
+          allow="autoplay; fullscreen"
+          allowFullScreen
+          style={{ width: "100%", height: "100%", border: "none" }}
+        />
+      </div>
+    </div>
+  );
 }
 
 // ─── Project Card ─────────────────────────────────────────────────────────────
 
 function ProjectCard({ p, index, onVideoClick }: {
-    p: Project;
-    index: number;
-    onVideoClick: (url: string) => void;
+  p: Project;
+  index: number;
+  onVideoClick: (url: string) => void;
 }) {
-    const [hovered, setHovered] = useState(false);
-    const cardRef = useRef<HTMLDivElement>(null);
-    const [tilt, setTilt] = useState({ x: 0, y: 0 });
+  const [hovered, setHovered] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [tilt, setTilt] = useState({ x: 0, y: 0 });
 
-    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-        const rect = cardRef.current!.getBoundingClientRect();
-        const x = ((e.clientX - rect.left) / rect.width - 0.5) * 10;
-        const y = ((e.clientY - rect.top) / rect.height - 0.5) * -10;
-        setTilt({ x, y });
-    };
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = cardRef.current!.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width  - 0.5) * 10;
+    const y = ((e.clientY - rect.top)  / rect.height - 0.5) * -10;
+    setTilt({ x, y });
+  };
 
-    const handleMouseLeave = () => {
-        setHovered(false);
-        setTilt({ x: 0, y: 0 });
-    };
+  const handleMouseLeave = () => {
+    setHovered(false);
+    setTilt({ x: 0, y: 0 });
+  };
 
-    return (
-        <div
-            ref={cardRef}
-            className={`proj-card proj-card--${p.size}`}
-            style={{
-                "--accent": p.accent,
-                "--g1": p.grad[0],
-                "--g2": p.grad[1],
-                "--delay": `${index * 0.07}s`,
-                transform: hovered
-                    ? `perspective(600px) rotateX(${tilt.y}deg) rotateY(${tilt.x}deg) translateY(-4px)`
-                    : "perspective(600px) rotateX(0) rotateY(0) translateY(0)",
-            } as React.CSSProperties}
-            onMouseEnter={() => setHovered(true)}
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
-            onClick={() => p.videoUrl && onVideoClick(p.videoUrl)}
-        >
-            {/* background gradient */}
-            <div className="proj-bg" />
+  return (
+    <div
+      ref={cardRef}
+      className={`proj-card proj-card--${p.size}`}
+      style={{
+        "--accent":  p.accent,
+        "--g1":      p.grad[0],
+        "--g2":      p.grad[1],
+        "--delay":   `${index * 0.07}s`,
+        transform: hovered
+          ? `perspective(600px) rotateX(${tilt.y}deg) rotateY(${tilt.x}deg) translateY(-4px)`
+          : "perspective(600px) rotateX(0) rotateY(0) translateY(0)",
+      } as React.CSSProperties}
+      onMouseEnter={() => setHovered(true)}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      onClick={() => p.videoUrl && onVideoClick(p.videoUrl)}
+    >
+      <div className="proj-bg" />
+      <div className="proj-noise" />
 
-            {/* noise */}
-            <div className="proj-noise" />
+      {/* top meta */}
+      <div className="proj-meta-top">
+        <span className="proj-tag">{p.tag}</span>
+        <span className="proj-year">{p.year}</span>
+      </div>
 
-            {/* top meta */}
-            <div className="proj-meta-top">
-                <span className="proj-tag">{p.tag}</span>
-                <span className="proj-year">{p.year}</span>
-            </div>
+      {/* watermark index */}
+      <div className="proj-index">0{p.id}</div>
 
-            {/* decorative index */}
-            <div className="proj-index">0{p.id}</div>
+      {/* title block */}
+      <div className="proj-body">
+        <h3 className="proj-title">{p.title}</h3>
+        <p className="proj-sub">{p.sub}</p>
+      </div>
 
-            {/* title block */}
-            <div className="proj-body">
-                <h3 className="proj-title">{p.title}</h3>
-                <p className="proj-sub">{p.sub}</p>
-            </div>
+      {/* footer */}
+      <div className="proj-footer">
+        <div className="proj-accent-bar" />
+        {p.videoUrl
+          ? <span className="proj-cta">▶ watch it</span>
+          : <span className="proj-cta">view →</span>
+        }
+      </div>
 
-            {/* bottom bar */}
-            <div className="proj-footer">
-                <div className="proj-accent-bar" />
-                {p.videoUrl ? (
-                    <span className="proj-cta">▶ watch it</span>
-                ) : (
-                    <span className="proj-cta">view →</span>
-                )}
-            </div>
-
-            {/* hover border glow */}
-            <div className={`proj-glow${hovered ? " proj-glow--on" : ""}`} />
-        </div>
-    );
+      {/* glow border on hover */}
+      <div className={`proj-glow${hovered ? " proj-glow--on" : ""}`} />
+    </div>
+  );
 }
 
-// ─── Main Section ────────────────────────────────────────────────────────────
+// ─── Main Section ─────────────────────────────────────────────────────────────
 
 export default function WorkSection() {
-    const [active, setActive] = useState<CatId>("all");
-    const [videoUrl, setVideoUrl] = useState<string | null>(null);
+  const [active, setActive] = useState<CatId>("all");
+  const [videoUrl, setVideoUrl] = useState<string | null>(null);
 
-    const visible = PROJECTS.filter(
-        (p) => active === "all" || p.cat === active
-    );
+  const visible = PROJECTS.filter(
+    (p) => active === "all" || p.cat === active
+  );
 
-    return (
-        <>
-            <style>{`
+  return (
+    <>
+      <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Geist+Mono:wght@300;400;500&display=swap');
 
-        /* ── Section ─────────────────────────────────── */
+        /* ─── Theme tokens ──────────────────────────── */
+        :root {
+          --bg-primary:    #110C29;
+          --bg-black:      #000000;
+          --text-primary:  #ffffff;
+          --accent:        #AA7DFC;
+          --accent-glow:   rgba(170,125,252,0.4);
+          --accent-subtle: rgba(170,125,252,0.08);
+          --accent-border: rgba(170,125,252,0.18);
+          --accent-mid:    rgba(170,125,252,0.3);
+        }
+
+        /* ─── Section ───────────────────────────────── */
         #projects {
-          background: #0a0a0a;
+          background: var(--bg-primary);
           padding: 120px 40px 100px;
           position: relative;
           overflow: hidden;
           font-family: 'Geist Mono', monospace;
         }
 
-        /* vertical rail lines */
+        /* vertical rails — purple tint */
         #projects::before, #projects::after {
           content: '';
           position: absolute;
           top: 0; bottom: 0;
           width: 1px;
-          background: rgba(255,255,255,0.04);
+          background: rgba(170,125,252,0.06);
         }
         #projects::before { left: 40px; }
         #projects::after  { right: 40px; }
 
-        /* ── Header ──────────────────────────────────── */
+        /* ambient radial glow */
+        .work-glow {
+          position: absolute;
+          top: -100px;
+          right: -100px;
+          width: 600px; height: 600px;
+          border-radius: 50%;
+          background: radial-gradient(circle, rgba(170,125,252,0.07) 0%, transparent 65%);
+          pointer-events: none;
+          z-index: 0;
+        }
+
+        /* ─── Header ────────────────────────────────── */
         .work-header {
           display: flex;
           align-items: flex-end;
@@ -280,13 +299,16 @@ export default function WorkSection() {
           margin-bottom: 56px;
           gap: 24px;
           flex-wrap: wrap;
+          position: relative;
+          z-index: 1;
         }
 
         .work-eyebrow {
           font-size: 9px;
           letter-spacing: 0.35em;
           text-transform: uppercase;
-          color: rgba(255,255,255,0.25);
+          color: var(--accent);
+          opacity: 0.7;
           margin-bottom: 10px;
         }
 
@@ -294,32 +316,35 @@ export default function WorkSection() {
           font-family: 'Bebas Neue', sans-serif;
           font-size: clamp(52px, 9vw, 100px);
           letter-spacing: 0.04em;
-          color: #fff;
+          color: var(--text-primary);
           line-height: 0.9;
         }
 
+        /* ghost-outline word in accent colour */
         .work-title em {
           font-style: normal;
-          -webkit-text-stroke: 1px rgba(255,255,255,0.35);
+          -webkit-text-stroke: 1px var(--accent);
           color: transparent;
         }
 
         .work-tagline {
           font-size: 10px;
           letter-spacing: 0.2em;
-          color: rgba(255,255,255,0.3);
+          color: rgba(255,255,255,0.28);
           max-width: 220px;
-          line-height: 1.8;
+          line-height: 1.9;
           text-transform: uppercase;
         }
 
-        /* ── Filter tabs ─────────────────────────────── */
+        /* ─── Filter tabs ───────────────────────────── */
         .work-filters {
           display: flex;
           align-items: center;
           gap: 4px;
           margin-bottom: 48px;
           flex-wrap: wrap;
+          position: relative;
+          z-index: 1;
         }
 
         .wf-btn {
@@ -328,20 +353,21 @@ export default function WorkSection() {
           font-size: 9px;
           letter-spacing: 0.25em;
           text-transform: uppercase;
-          color: rgba(255,255,255,0.35);
+          color: rgba(255,255,255,0.3);
           background: none;
-          border: 1px solid rgba(255,255,255,0.1);
+          border: 1px solid rgba(170,125,252,0.14);
           cursor: pointer;
-          transition: all 0.2s ease;
+          transition: color 0.2s ease, border-color 0.2s, background 0.2s;
           position: relative;
           overflow: hidden;
         }
 
+        /* fill sweeps up in accent */
         .wf-btn::before {
           content: '';
           position: absolute;
           inset: 0;
-          background: #fff;
+          background: var(--accent);
           transform: translateY(101%);
           transition: transform 0.25s cubic-bezier(0.77,0,0.18,1);
         }
@@ -349,13 +375,13 @@ export default function WorkSection() {
         .wf-btn span { position: relative; z-index: 1; }
 
         .wf-btn:hover {
-          color: #fff;
-          border-color: rgba(255,255,255,0.4);
+          color: var(--accent);
+          border-color: var(--accent-mid);
         }
 
         .wf-btn.active {
-          color: #0a0a0a;
-          border-color: #fff;
+          color: var(--bg-primary);
+          border-color: var(--accent);
         }
         .wf-btn.active::before { transform: translateY(0); }
 
@@ -363,30 +389,30 @@ export default function WorkSection() {
         .wf-count {
           font-size: 7px;
           color: rgba(255,255,255,0.25);
-          margin-left: 6px;
+          margin-left: 5px;
           vertical-align: top;
           margin-top: 1px;
           display: inline-block;
         }
-        .wf-btn.active .wf-count { color: rgba(0,0,0,0.4); }
+        .wf-btn.active .wf-count { color: rgba(17,12,41,0.5); }
 
-        /* ── Grid ─────────────────────────────────────── */
+        /* ─── Grid ──────────────────────────────────── */
         .work-grid {
           display: grid;
           grid-template-columns: repeat(4, 1fr);
           gap: 2px;
+          position: relative;
+          z-index: 1;
         }
 
-        @media (max-width: 1024px) {
-          .work-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-        @media (max-width: 600px) {
+        @media (max-width: 1024px) { .work-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 600px)  {
           .work-grid { grid-template-columns: 1fr; }
           #projects  { padding: 80px 20px 80px; }
           .work-title { font-size: 52px; }
         }
 
-        /* ── Card ─────────────────────────────────────── */
+        /* ─── Card ──────────────────────────────────── */
         .proj-card {
           position: relative;
           overflow: hidden;
@@ -406,16 +432,14 @@ export default function WorkSection() {
           min-height: 340px;
         }
 
-        @media (max-width: 600px) {
-          .proj-card--big { grid-column: span 1; }
-        }
+        @media (max-width: 600px) { .proj-card--big { grid-column: span 1; } }
 
         @keyframes card-in {
           from { opacity: 0; transform: translateY(20px); }
           to   { opacity: 1; transform: translateY(0); }
         }
 
-        /* gradient bg */
+        /* gradient bg — uses per-card vars but base is dark purple */
         .proj-bg {
           position: absolute;
           inset: 0;
@@ -423,18 +447,18 @@ export default function WorkSection() {
           z-index: 0;
         }
 
-        /* noise layer */
+        /* noise */
         .proj-noise {
           position: absolute;
           inset: 0;
           background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
-          background-size: 180px 180px;
-          opacity: 0.5;
+          background-size: 180px;
+          opacity: 0.45;
           z-index: 1;
           pointer-events: none;
         }
 
-        /* glow border */
+        /* glow border — accent colour */
         .proj-glow {
           position: absolute;
           inset: 0;
@@ -445,10 +469,11 @@ export default function WorkSection() {
         }
         .proj-glow--on {
           border-color: var(--accent);
-          box-shadow: inset 0 0 40px rgba(255,255,255,0.03), 0 0 0 1px var(--accent);
+          box-shadow: inset 0 0 40px rgba(170,125,252,0.06),
+                      0 0 0 1px var(--accent);
         }
 
-        /* content layers */
+        /* top meta */
         .proj-meta-top {
           position: relative;
           z-index: 2;
@@ -462,9 +487,15 @@ export default function WorkSection() {
           letter-spacing: 0.25em;
           text-transform: uppercase;
           color: var(--accent);
-          opacity: 0.8;
+          opacity: 0.85;
           padding: 3px 8px;
-          border: 1px solid currentColor;
+          border: 1px solid rgba(170,125,252,0.3);
+        }
+
+        /* override per-card accent for non-purple tags */
+        .proj-card .proj-tag {
+          color: var(--accent);
+          border-color: color-mix(in srgb, var(--accent) 30%, transparent);
         }
 
         .proj-year {
@@ -473,13 +504,14 @@ export default function WorkSection() {
           color: rgba(255,255,255,0.2);
         }
 
+        /* big watermark number */
         .proj-index {
           position: absolute;
           bottom: 24px;
           right: 24px;
           font-family: 'Bebas Neue', sans-serif;
           font-size: 72px;
-          color: rgba(255,255,255,0.04);
+          color: rgba(170,125,252,0.06);
           line-height: 1;
           z-index: 2;
           pointer-events: none;
@@ -505,7 +537,7 @@ export default function WorkSection() {
         .proj-sub {
           font-size: 9px;
           letter-spacing: 0.15em;
-          color: rgba(255,255,255,0.35);
+          color: rgba(255,255,255,0.32);
           text-transform: uppercase;
           line-height: 1.7;
           max-width: 340px;
@@ -519,33 +551,36 @@ export default function WorkSection() {
           justify-content: space-between;
         }
 
+        /* accent bar stretches on hover */
         .proj-accent-bar {
           height: 2px;
           width: 32px;
           background: var(--accent);
-          opacity: 0.7;
+          opacity: 0.6;
           transition: width 0.3s ease;
         }
-        .proj-card:hover .proj-accent-bar { width: 60px; }
+        .proj-card:hover .proj-accent-bar { width: 60px; opacity: 1; }
 
         .proj-cta {
           font-size: 9px;
           letter-spacing: 0.2em;
           text-transform: uppercase;
-          color: rgba(255,255,255,0.3);
+          color: rgba(255,255,255,0.25);
           transition: color 0.2s ease;
         }
         .proj-card:hover .proj-cta { color: var(--accent); }
 
-        /* ── Count strip ─────────────────────────────── */
+        /* ─── Stats strip ───────────────────────────── */
         .work-count-strip {
           margin-top: 48px;
           display: flex;
           align-items: center;
           gap: 24px;
-          border-top: 1px solid rgba(255,255,255,0.06);
+          border-top: 1px solid rgba(170,125,252,0.1);
           padding-top: 28px;
           flex-wrap: wrap;
+          position: relative;
+          z-index: 1;
         }
 
         .wcs-item {
@@ -557,7 +592,7 @@ export default function WorkSection() {
         .wcs-num {
           font-family: 'Bebas Neue', sans-serif;
           font-size: 36px;
-          color: #fff;
+          color: var(--text-primary);
           line-height: 1;
           letter-spacing: 0.05em;
         }
@@ -565,128 +600,132 @@ export default function WorkSection() {
         .wcs-label {
           font-size: 8px;
           letter-spacing: 0.28em;
-          color: rgba(255,255,255,0.25);
+          color: rgba(170,125,252,0.5);
           text-transform: uppercase;
         }
 
         .wcs-divider {
           width: 1px;
           height: 40px;
-          background: rgba(255,255,255,0.1);
+          background: rgba(170,125,252,0.15);
         }
 
-        /* ── Video Modal ─────────────────────────────── */
+        /* ─── Video Modal ───────────────────────────── */
         .vid-overlay {
           position: fixed;
           inset: 0;
-          background: rgba(0,0,0,0.92);
+          background: rgba(17,12,41,0.94);
           z-index: 9998;
           display: flex;
           align-items: center;
           justify-content: center;
-          backdrop-filter: blur(6px);
+          backdrop-filter: blur(8px);
           animation: fade-in 0.2s ease;
         }
-
         @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
 
         .vid-modal {
           position: relative;
           width: min(880px, 90vw);
           aspect-ratio: 16/9;
-          background: #111;
-          border: 1px solid rgba(255,255,255,0.1);
+          background: #0a0614;
+          border: 1px solid var(--accent-border);
+          box-shadow: 0 0 80px rgba(170,125,252,0.15);
         }
 
         .vid-close {
           position: absolute;
-          top: -36px;
-          right: 0;
+          top: -36px; right: 0;
           background: none;
-          border: 1px solid rgba(255,255,255,0.2);
-          color: #fff;
+          border: 1px solid var(--accent-border);
+          color: var(--accent);
           font-size: 11px;
           padding: 4px 10px;
           cursor: pointer;
           font-family: 'Geist Mono', monospace;
           letter-spacing: 0.1em;
-          transition: background 0.2s;
+          transition: background 0.2s, color 0.2s;
         }
-        .vid-close:hover { background: rgba(255,255,255,0.1); }
+        .vid-close:hover {
+          background: var(--accent);
+          color: var(--bg-primary);
+        }
       `}</style>
 
-            <section id="projects">
-                {/* ── Header ────────────────────────────────── */}
-                <div className="work-header">
-                    <div>
-                        <p className="work-eyebrow">our work — selected drops</p>
-                        <h2 className="work-title">
-                            stuff we<br />
-                            <em>actually</em><br />
-                            shipped
-                        </h2>
-                    </div>
-                    <p className="work-tagline">
-                        no filler, no stock photos — just real projects we went full send on
-                    </p>
-                </div>
+      <section id="projects">
+        <div className="work-glow" />
 
-                {/* ── Filters ───────────────────────────────── */}
-                <div className="work-filters">
-                    {CATEGORIES.map((c) => {
-                        const cnt = c.id === "all"
-                            ? PROJECTS.length
-                            : PROJECTS.filter((p) => p.cat === c.id).length;
-                        return (
-                            <button
-                                key={c.id}
-                                className={`wf-btn${active === c.id ? " active" : ""}`}
-                                onClick={() => setActive(c.id as CatId)}
-                            >
-                                <span>
-                                    {c.label}
-                                    <sup className="wf-count">{cnt}</sup>
-                                </span>
-                            </button>
-                        );
-                    })}
-                </div>
+        {/* ─── Header ─────────────────────────────── */}
+        <div className="work-header">
+          <div>
+            <p className="work-eyebrow">our work — selected drops</p>
+            <h2 className="work-title">
+              stuff we<br />
+              <em>actually</em><br />
+              shipped
+            </h2>
+          </div>
+          <p className="work-tagline">
+            no filler, no stock photos — just real projects we went full send on
+          </p>
+        </div>
 
-                {/* ── Grid ──────────────────────────────────── */}
-                <div className="work-grid">
-                    {visible.map((p, i) => (
-                        <ProjectCard
-                            key={p.id}
-                            p={p}
-                            index={i}
-                            onVideoClick={setVideoUrl}
-                        />
-                    ))}
-                </div>
+        {/* ─── Filters ────────────────────────────── */}
+        <div className="work-filters">
+          {CATEGORIES.map((c) => {
+            const cnt = c.id === "all"
+              ? PROJECTS.length
+              : PROJECTS.filter((p) => p.cat === c.id).length;
+            return (
+              <button
+                key={c.id}
+                className={`wf-btn${active === c.id ? " active" : ""}`}
+                onClick={() => setActive(c.id as CatId)}
+              >
+                <span>
+                  {c.label}
+                  <sup className="wf-count">{cnt}</sup>
+                </span>
+              </button>
+            );
+          })}
+        </div>
 
-                {/* ── Stats strip ───────────────────────────── */}
-                <div className="work-count-strip">
-                    {[
-                        { num: "40+", label: "projects delivered" },
-                        { num: "3", label: "disciplines" },
-                        { num: "100%", label: "client retention" },
-                        { num: "2026", label: "and counting" },
-                    ].map((s, i) => (
-                        <div key={i} style={{ display: "flex", alignItems: "center", gap: "24px" }}>
-                            {i > 0 && <div className="wcs-divider" />}
-                            <div className="wcs-item">
-                                <span className="wcs-num">{s.num}</span>
-                                <span className="wcs-label">{s.label}</span>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </section>
+        {/* ─── Grid ───────────────────────────────── */}
+        <div className="work-grid">
+          {visible.map((p, i) => (
+            <ProjectCard
+              key={p.id}
+              p={p}
+              index={i}
+              onVideoClick={setVideoUrl}
+            />
+          ))}
+        </div>
 
-            {/* ── Video modal ───────────────────────────── */}
-            {videoUrl && (
-                <VideoModal url={videoUrl} onClose={() => setVideoUrl(null)} />
-            )}
-        </>
-    );
+        {/* ─── Stats strip ────────────────────────── */}
+        <div className="work-count-strip">
+          {[
+            { num: "40+",  label: "projects delivered" },
+            { num: "3",    label: "disciplines"        },
+            { num: "100%", label: "client retention"   },
+            { num: "2026", label: "and counting"       },
+          ].map((s, i) => (
+            <div key={i} style={{ display: "flex", alignItems: "center", gap: "24px" }}>
+              {i > 0 && <div className="wcs-divider" />}
+              <div className="wcs-item">
+                <span className="wcs-num">{s.num}</span>
+                <span className="wcs-label">{s.label}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ─── Video modal ──────────────────────────── */}
+      {videoUrl && (
+        <VideoModal url={videoUrl} onClose={() => setVideoUrl(null)} />
+      )}
+    </>
+  );
 }
