@@ -158,7 +158,7 @@ export default function Navbar() {
           display: block;
           position: relative;
           padding: 6px 14px;
-          font-size: 10px;
+          font-size: 11px;
           letter-spacing: 0.22em;
           text-transform: uppercase;
           color: rgba(255,255,255,0.4);
@@ -210,7 +210,7 @@ export default function Navbar() {
         .clock-dot {
           width: 5px; height: 5px;
           border-radius: 50%;
-          background: var(--accent);
+          background: #90EE90;
           box-shadow: 0 0 8px var(--accent-glow);
           animation: pulse 2s ease infinite;
           flex-shrink: 0;
