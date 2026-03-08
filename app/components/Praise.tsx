@@ -10,9 +10,7 @@ interface Testimonial {
   name: string;
   handle: string;
   role: string;
-  service: "web" | "graphic" | "video" | "brandstack";
   serviceLabel: string;
-  accent: string;
   initials: string;
 }
 
@@ -23,9 +21,7 @@ const TESTIMONIALS: Testimonial[] = [
     name: "Zara Ahmed",
     handle: "@zaraahmedd",
     role: "Founder, Void Apparel",
-    service: "graphic",
     serviceLabel: "Brand Identity",
-    accent: "#ffffff",
     initials: "ZA",
   },
   {
@@ -34,9 +30,7 @@ const TESTIMONIALS: Testimonial[] = [
     name: "Karan Mehta",
     handle: "@karanbuilds",
     role: "CEO, Clerq",
-    service: "web",
     serviceLabel: "SaaS Website",
-    accent: "#4fffb0",
     initials: "KM",
   },
   {
@@ -45,9 +39,7 @@ const TESTIMONIALS: Testimonial[] = [
     name: "Nadia Yusuf",
     handle: "@nadiayusuf_",
     role: "Head of Marketing, ByteSnack",
-    service: "video",
     serviceLabel: "Social Reels",
-    accent: "#e040fb",
     initials: "NY",
   },
   {
@@ -56,9 +48,7 @@ const TESTIMONIALS: Testimonial[] = [
     name: "Omar Siddiqui",
     handle: "@omarsidq",
     role: "Co-founder, Flo Dashboard",
-    service: "brandstack",
     serviceLabel: "BrandStack",
-    accent: "#c9a96e",
     initials: "OS",
   },
   {
@@ -67,9 +57,7 @@ const TESTIMONIALS: Testimonial[] = [
     name: "Lena Strauss",
     handle: "@lenastrauss",
     role: "Product Lead, Pulse Energy",
-    service: "graphic",
     serviceLabel: "Packaging",
-    accent: "#ffffff",
     initials: "LS",
   },
   {
@@ -78,9 +66,7 @@ const TESTIMONIALS: Testimonial[] = [
     name: "Tariq Noor",
     handle: "@tariqnoor_dev",
     role: "CTO, Orbit CMS",
-    service: "web",
     serviceLabel: "Marketing Site",
-    accent: "#4fffb0",
     initials: "TN",
   },
   {
@@ -89,33 +75,25 @@ const TESTIMONIALS: Testimonial[] = [
     name: "Priya Sharma",
     handle: "@priyabuilds",
     role: "Founder, Solstice",
-    service: "video",
     serviceLabel: "Brand Film",
-    accent: "#ff6b35",
     initials: "PS",
   },
 ];
 
-// ─── Star Rating ──────────────────────────────────────────────────────────────
+// ─── Stars ────────────────────────────────────────────────────────────────────
 
 function Stars() {
   return (
-    <div className="stars">
-      {[1,2,3,4,5].map(i => (
-        <span key={i} className="star">★</span>
-      ))}
+    <div className="pr-stars">
+      {[1,2,3,4,5].map(i => <span key={i} className="pr-star">★</span>)}
     </div>
   );
 }
 
-// ─── Single Card ──────────────────────────────────────────────────────────────
+// ─── Card ─────────────────────────────────────────────────────────────────────
 
 function TestiCard({
-  t,
-  stackPos,  // 0 = front, 1 = behind-1, 2 = behind-2
-  total,
-  onClick,
-  isLeaving,
+  t, stackPos, total, onClick, isLeaving,
 }: {
   t: Testimonial;
   stackPos: number;
@@ -123,85 +101,68 @@ function TestiCard({
   onClick: () => void;
   isLeaving: boolean;
 }) {
-  const offsetY  = stackPos * 10;
-  const offsetX  = stackPos * 4;
-  const scale    = 1 - stackPos * 0.04;
-  const zIndex   = total - stackPos;
-  const opacity  = stackPos > 2 ? 0 : 1 - stackPos * 0.15;
+  const offsetY = stackPos * 10;
+  const offsetX = stackPos * 5;
+  const scale   = 1 - stackPos * 0.04;
+  const zIndex  = total - stackPos;
+  const opacity = stackPos > 2 ? 0 : 1 - stackPos * 0.18;
 
   return (
     <div
-      className={`tc-card${stackPos === 0 ? " tc-card--front" : ""}${isLeaving ? " tc-card--leave" : ""}`}
+      className={`pr-card${stackPos === 0 ? " pr-card--front" : ""}${isLeaving ? " pr-card--leave" : ""}`}
       style={{
-        "--accent": t.accent,
         transform: `translateY(${offsetY}px) translateX(${offsetX}px) scale(${scale})`,
         zIndex,
         opacity,
         pointerEvents: stackPos === 0 ? "auto" : "none",
-      } as React.CSSProperties}
+      }}
       onClick={stackPos === 0 ? onClick : undefined}
     >
-      <div className="tc-noise" />
+      <div className="pr-card-noise" />
 
-      {/* top row */}
-      <div className="tc-top">
-        <div className="tc-service-tag">{t.serviceLabel}</div>
+      <div className="pr-card-top">
+        <span className="pr-service-tag">{t.serviceLabel}</span>
         <Stars />
       </div>
 
-      {/* quote */}
-      <div className="tc-quote-wrap">
-        <span className="tc-open-q">"</span>
-        <p className="tc-quote">{t.quote}</p>
+      <div className="pr-quote-wrap">
+        <span className="pr-open-q" aria-hidden>"</span>
+        <p className="pr-quote">{t.quote}</p>
       </div>
 
-      {/* author */}
-      <div className="tc-author">
-        <div className="tc-avatar">
-          <span className="tc-initials">{t.initials}</span>
+      <div className="pr-author">
+        <div className="pr-avatar">
+          <span className="pr-initials">{t.initials}</span>
         </div>
-        <div className="tc-author-info">
-          <div className="tc-name">{t.name}</div>
-          <div className="tc-role">{t.role}</div>
-          <div className="tc-handle">{t.handle}</div>
+        <div className="pr-author-info">
+          <div className="pr-name">{t.name}</div>
+          <div className="pr-role">{t.role}</div>
+          <div className="pr-handle">{t.handle}</div>
         </div>
       </div>
 
-      {/* bottom hint — only on front */}
       {stackPos === 0 && (
-        <div className="tc-hint">
-          tap to read next <span className="tc-hint-arrow">→</span>
-        </div>
+        <div className="pr-hint">tap to read next <span className="pr-hint-arr">→</span></div>
       )}
 
-      {/* accent line bottom */}
-      <div className="tc-accent-line" />
+      <div className="pr-bottom-line" />
     </div>
   );
 }
 
-// ─── Marquee strip ────────────────────────────────────────────────────────────
+// ─── Marquee ──────────────────────────────────────────────────────────────────
 
-function MarqueeStrip() {
-  const words = ["loved it", "fire", "shipped on time", "no cap", "actually different", "goated", "came through", "10/10"];
-  const doubled = [...words, ...words];
-  return (
-    <div className="marquee-wrap">
-      <div className="marquee-track">
-        {doubled.map((w, i) => (
-          <span key={i} className="marquee-item">
-            {w} <span className="marquee-dot">◆</span>
-          </span>
-        ))}
-      </div>
-    </div>
-  );
-}
+const MARQUEE_WORDS = [
+  "loved it","fire","shipped on time","no cap","actually different",
+  "goated","came through","10/10",
+  "loved it","fire","shipped on time","no cap","actually different",
+  "goated","came through","10/10",
+];
 
-// ─── Main Section ─────────────────────────────────────────────────────────────
+// ─── Main ─────────────────────────────────────────────────────────────────────
 
 export default function PraiseSection() {
-  const [deck, setDeck] = useState(TESTIMONIALS);
+  const [deck, setDeck]       = useState(TESTIMONIALS);
   const [leaving, setLeaving] = useState(false);
   const autoRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -209,155 +170,161 @@ export default function PraiseSection() {
     if (leaving) return;
     setLeaving(true);
     setTimeout(() => {
-      setDeck(prev => {
-        const [first, ...rest] = prev;
-        return [...rest, first];
-      });
+      setDeck(prev => { const [first, ...rest] = prev; return [...rest, first]; });
       setLeaving(false);
     }, 380);
   }, [leaving]);
 
-  // auto-advance every 5s
   useEffect(() => {
     autoRef.current = setTimeout(advance, 5000);
     return () => { if (autoRef.current) clearTimeout(autoRef.current); };
   }, [deck, advance]);
 
   const jumpTo = (idx: number) => {
-    setDeck(prev => {
-      const front = prev.findIndex((_, i) => i === 0);
-      // rotate until target is at front
-      const target = TESTIMONIALS[idx];
-      const currentIdx = prev.findIndex(t => t.id === target.id);
-      const rotated = [...prev.slice(currentIdx), ...prev.slice(0, currentIdx)];
-      return rotated;
-    });
+    const target     = TESTIMONIALS[idx];
+    const currentIdx = deck.findIndex(t => t.id === target.id);
+    setDeck([...deck.slice(currentIdx), ...deck.slice(0, currentIdx)]);
   };
-
-  const frontId = deck[0]?.id;
 
   return (
     <>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Geist+Mono:wght@300;400;500&display=swap');
 
+        /* All selectors scoped — no :root bleed */
+
         /* ── Section ─────────────────────────────── */
         #testimonials {
-          background: #0a0a0a;
+          background: #110C29;
           padding: 120px 40px 100px;
           position: relative;
           overflow: hidden;
           font-family: 'Geist Mono', monospace;
         }
 
-        #testimonials::before, #testimonials::after {
+        #testimonials::before,
+        #testimonials::after {
           content: '';
           position: absolute;
           top: 0; bottom: 0;
           width: 1px;
-          background: rgba(255,255,255,0.04);
+          background: rgba(170,125,252,0.06);
         }
         #testimonials::before { left: 40px; }
         #testimonials::after  { right: 40px; }
 
+        .pr-glow {
+          position: absolute;
+          top: -120px; right: -120px;
+          width: 550px; height: 550px;
+          border-radius: 50%;
+          background: radial-gradient(circle, rgba(170,125,252,0.08) 0%, transparent 65%);
+          pointer-events: none;
+          z-index: 0;
+        }
+
         /* ── Header ──────────────────────────────── */
-        .praise-header {
+        .pr-header {
           display: flex;
           align-items: flex-end;
           justify-content: space-between;
           gap: 32px;
           flex-wrap: wrap;
           margin-bottom: 64px;
+          position: relative;
+          z-index: 1;
         }
 
-        .praise-eyebrow {
+        .pr-eyebrow {
           font-size: 9px;
           letter-spacing: 0.35em;
           text-transform: uppercase;
-          color: rgba(255,255,255,0.25);
+          color: #AA7DFC;
+          opacity: 0.75;
           margin-bottom: 10px;
         }
 
-        .praise-title {
+        .pr-title {
           font-family: 'Bebas Neue', sans-serif;
           font-size: clamp(52px, 9vw, 100px);
           letter-spacing: 0.04em;
-          color: #fff;
+          color: #ffffff;
           line-height: 0.9;
         }
 
-        .praise-title em {
+        .pr-title em {
           font-style: normal;
-          -webkit-text-stroke: 1px rgba(255,255,255,0.3);
+          -webkit-text-stroke: 1px #AA7DFC;
           color: transparent;
         }
 
-        .praise-sub {
+        .pr-sub {
           font-size: 10px;
           letter-spacing: 0.2em;
-          color: rgba(255,255,255,0.28);
+          color: rgba(255,255,255,0.25);
           text-transform: uppercase;
           line-height: 1.9;
           max-width: 240px;
         }
 
-        /* ── Layout ──────────────────────────────── */
-        .praise-body {
+        /* ── Body layout ─────────────────────────── */
+        .pr-body {
           display: grid;
           grid-template-columns: 1fr 1fr;
           gap: 80px;
           align-items: center;
+          position: relative;
+          z-index: 1;
         }
 
         @media (max-width: 860px) {
-          .praise-body { grid-template-columns: 1fr; gap: 64px; }
+          .pr-body { grid-template-columns: 1fr; gap: 56px; }
           #testimonials { padding: 80px 24px 80px; }
+          .pr-title { font-size: 52px; }
         }
 
-        /* ── Stack area ──────────────────────────── */
-        .tc-stack-wrap {
+        /* ── Stack wrapper ───────────────────────── */
+        .pr-stack {
           position: relative;
           height: 360px;
           cursor: pointer;
         }
 
+        @media (max-width: 600px) { .pr-stack { height: 420px; } }
+
         /* ── Card ────────────────────────────────── */
-        .tc-card {
+        .pr-card {
           position: absolute;
           inset: 0;
-          padding: 28px 28px 24px;
-          border: 1px solid rgba(255,255,255,0.08);
-          background: #0e0e0e;
+          padding: 26px 26px 20px;
+          border: 1px solid rgba(170,125,252,0.16);
+          background: linear-gradient(140deg, #1c1245 0%, #110C29 100%);
           display: flex;
           flex-direction: column;
-          gap: 0;
+          overflow: hidden;
+          user-select: none;
           transition: transform 0.4s cubic-bezier(0.16,1,0.3,1),
                       opacity  0.4s ease,
                       box-shadow 0.3s ease;
-          overflow: hidden;
-          user-select: none;
         }
 
-        .tc-card--front {
-          border-color: rgba(255,255,255,0.14);
+        .pr-card--front {
+          border-color: rgba(170,125,252,0.35);
         }
 
-        .tc-card--front:hover {
-          box-shadow: 0 0 0 1px var(--accent), 0 20px 60px rgba(0,0,0,0.6);
+        .pr-card--front:hover {
+          box-shadow: 0 0 0 1px #AA7DFC, 0 20px 60px rgba(170,125,252,0.14);
         }
 
-        /* leave animation — flings card up and off */
-        .tc-card--leave.tc-card--front {
-          animation: card-fling 0.38s cubic-bezier(0.55,0,1,0.45) forwards;
+        .pr-card--leave.pr-card--front {
+          animation: pr-fling 0.38s cubic-bezier(0.55,0,1,0.45) forwards;
         }
 
-        @keyframes card-fling {
-          0%   { transform: translateY(0) translateX(0) scale(1) rotate(0deg); opacity: 1; }
-          100% { transform: translateY(-120%) translateX(20px) scale(0.92) rotate(3deg); opacity: 0; }
+        @keyframes pr-fling {
+          to { transform: translateY(-120%) translateX(20px) scale(0.92) rotate(3deg); opacity: 0; }
         }
 
-        /* noise */
-        .tc-noise {
+        .pr-card-noise {
           position: absolute;
           inset: 0;
           background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
@@ -367,244 +334,223 @@ export default function PraiseSection() {
           z-index: 0;
         }
 
-        /* top row */
-        .tc-top {
+        .pr-card-top {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          margin-bottom: 20px;
+          margin-bottom: 16px;
           position: relative;
           z-index: 1;
         }
 
-        .tc-service-tag {
+        .pr-service-tag {
           font-size: 8px;
           letter-spacing: 0.25em;
           text-transform: uppercase;
-          color: var(--accent);
-          border: 1px solid currentColor;
+          color: #AA7DFC;
+          border: 1px solid rgba(170,125,252,0.3);
           padding: 3px 8px;
-          opacity: 0.8;
         }
 
-        /* stars */
-        .stars { display: flex; gap: 2px; }
-        .star {
-          color: #c9a96e;
-          font-size: 10px;
-          line-height: 1;
-        }
+        .pr-stars { display: flex; gap: 2px; }
+        .pr-star  { color: #c9a96e; font-size: 10px; line-height: 1; }
 
-        /* quote */
-        .tc-quote-wrap {
+        .pr-quote-wrap {
           flex: 1;
-          position: relative;
-          z-index: 1;
-          margin-bottom: 20px;
-        }
-
-        .tc-open-q {
-          font-family: 'Bebas Neue', sans-serif;
-          font-size: 64px;
-          color: var(--accent);
-          opacity: 0.15;
-          line-height: 0.7;
-          display: block;
-          margin-bottom: -8px;
-        }
-
-        .tc-quote {
-          font-size: 11px;
-          letter-spacing: 0.06em;
-          color: rgba(255,255,255,0.7);
-          line-height: 1.8;
-          font-style: italic;
-        }
-
-        /* author */
-        .tc-author {
-          display: flex;
-          align-items: center;
-          gap: 14px;
           position: relative;
           z-index: 1;
           margin-bottom: 16px;
         }
 
-        .tc-avatar {
-          width: 38px;
-          height: 38px;
-          border: 1px solid var(--accent);
+        .pr-open-q {
+          font-family: 'Bebas Neue', sans-serif;
+          font-size: 56px;
+          color: #AA7DFC;
+          opacity: 0.1;
+          line-height: 0.7;
+          display: block;
+          margin-bottom: -4px;
+        }
+
+        .pr-quote {
+          font-size: 11px;
+          letter-spacing: 0.05em;
+          color: rgba(255,255,255,0.62);
+          line-height: 1.8;
+          font-style: italic;
+        }
+
+        .pr-author {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          position: relative;
+          z-index: 1;
+          margin-bottom: 12px;
+        }
+
+        .pr-avatar {
+          width: 36px; height: 36px;
+          border: 1px solid rgba(170,125,252,0.4);
+          background: rgba(170,125,252,0.08);
           display: flex;
           align-items: center;
           justify-content: center;
           flex-shrink: 0;
-          background: rgba(255,255,255,0.03);
         }
 
-        .tc-initials {
+        .pr-initials {
           font-family: 'Bebas Neue', sans-serif;
-          font-size: 14px;
-          color: var(--accent);
-          letter-spacing: 0.1em;
+          font-size: 13px;
+          color: #AA7DFC;
+          letter-spacing: 0.08em;
         }
 
-        .tc-name {
+        .pr-name {
           font-size: 10px;
           letter-spacing: 0.18em;
           text-transform: uppercase;
           color: #fff;
-          margin-bottom: 3px;
-        }
-
-        .tc-role {
-          font-size: 8px;
-          letter-spacing: 0.18em;
-          text-transform: uppercase;
-          color: rgba(255,255,255,0.3);
           margin-bottom: 2px;
         }
 
-        .tc-handle {
+        .pr-role {
           font-size: 8px;
-          letter-spacing: 0.1em;
-          color: var(--accent);
-          opacity: 0.6;
+          letter-spacing: 0.15em;
+          text-transform: uppercase;
+          color: rgba(255,255,255,0.25);
+          margin-bottom: 2px;
         }
 
-        /* hint */
-        .tc-hint {
+        .pr-handle {
+          font-size: 8px;
+          letter-spacing: 0.1em;
+          color: #AA7DFC;
+          opacity: 0.5;
+        }
+
+        .pr-hint {
           font-size: 8px;
           letter-spacing: 0.22em;
           text-transform: uppercase;
-          color: rgba(255,255,255,0.2);
+          color: rgba(255,255,255,0.16);
           position: relative;
           z-index: 1;
         }
 
-        .tc-hint-arrow {
-          transition: transform 0.2s ease;
+        .pr-hint-arr {
           display: inline-block;
+          transition: transform 0.2s;
         }
-        .tc-card--front:hover .tc-hint-arrow { transform: translateX(4px); }
+        .pr-card--front:hover .pr-hint-arr { transform: translateX(4px); }
 
-        /* accent bottom line */
-        .tc-accent-line {
+        /* bottom accent line draws on hover */
+        .pr-bottom-line {
           position: absolute;
           bottom: 0; left: 0; right: 0;
           height: 2px;
-          background: var(--accent);
+          background: #AA7DFC;
           transform: scaleX(0);
           transform-origin: left;
           transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
-          z-index: 2;
+          z-index: 3;
         }
-        .tc-card--front:hover .tc-accent-line { transform: scaleX(1); }
+        .pr-card--front:hover .pr-bottom-line { transform: scaleX(1); }
 
         /* ── Right panel ─────────────────────────── */
-        .praise-right {
+        .pr-right {
           display: flex;
           flex-direction: column;
-          gap: 40px;
+          gap: 36px;
         }
 
         /* dot nav */
-        .praise-dots {
-          display: flex;
-          flex-direction: column;
-          gap: 12px;
-        }
+        .pr-dots { display: flex; flex-direction: column; }
 
-        .praise-dot-row {
+        .pr-dot-row {
           display: flex;
           align-items: center;
           gap: 14px;
           cursor: pointer;
-          padding: 8px 0;
-          border-bottom: 1px solid rgba(255,255,255,0.05);
-          transition: border-color 0.2s;
+          padding: 10px 0;
+          border-bottom: 1px solid rgba(170,125,252,0.08);
           position: relative;
+          transition: border-color 0.2s;
         }
+        .pr-dot-row:hover      { border-color: rgba(170,125,252,0.22); }
+        .pr-dot-row--active    { border-color: rgba(170,125,252,0.25); }
 
-        .praise-dot-row:hover { border-color: rgba(255,255,255,0.15); }
-
-        .praise-dot-row.dot-active { border-color: rgba(255,255,255,0.2); }
-
-        .dot-pip {
-          width: 6px;
-          height: 6px;
+        .pr-pip {
+          width: 6px; height: 6px;
           border-radius: 50%;
-          background: rgba(255,255,255,0.15);
+          background: rgba(170,125,252,0.2);
           flex-shrink: 0;
-          transition: background 0.2s, transform 0.2s;
+          transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
         }
-        .dot-active .dot-pip {
-          background: #fff;
+        .pr-dot-row--active .pr-pip {
+          background: #AA7DFC;
           transform: scale(1.4);
+          box-shadow: 0 0 6px rgba(170,125,252,0.5);
         }
 
-        .dot-name {
+        .pr-dot-name {
           font-size: 9px;
           letter-spacing: 0.2em;
           text-transform: uppercase;
-          color: rgba(255,255,255,0.3);
+          color: rgba(255,255,255,0.25);
           transition: color 0.2s;
           flex: 1;
         }
-        .dot-active .dot-name { color: rgba(255,255,255,0.8); }
+        .pr-dot-row--active .pr-dot-name { color: rgba(255,255,255,0.75); }
 
-        .dot-service {
+        .pr-dot-svc {
           font-size: 7px;
-          letter-spacing: 0.2em;
+          letter-spacing: 0.18em;
           text-transform: uppercase;
-          color: rgba(255,255,255,0.15);
+          color: rgba(170,125,252,0.2);
           padding: 2px 7px;
-          border: 1px solid rgba(255,255,255,0.08);
+          border: 1px solid rgba(170,125,252,0.1);
           transition: color 0.2s, border-color 0.2s;
         }
-        .dot-active .dot-service {
-          color: rgba(255,255,255,0.4);
-          border-color: rgba(255,255,255,0.2);
+        .pr-dot-row--active .pr-dot-svc {
+          color: #AA7DFC;
+          border-color: rgba(170,125,252,0.3);
         }
 
-        .dot-progress {
+        .pr-dot-progress {
           position: absolute;
           bottom: -1px; left: 0;
           height: 1px;
-          background: #fff;
-          width: 0%;
-          transition: none;
+          background: #AA7DFC;
+          width: 0;
+          animation: pr-prog 5s linear forwards;
         }
-        .dot-active .dot-progress {
-          animation: dot-fill 5s linear forwards;
-        }
+        @keyframes pr-prog { to { width: 100%; } }
 
-        @keyframes dot-fill { from { width: 0%; } to { width: 100%; } }
-
-        /* ── Stat block ──────────────────────────── */
-        .praise-stats {
+        /* ── Stats ───────────────────────────────── */
+        .pr-stats {
           display: grid;
-          grid-template-columns: repeat(3, 1fr);
+          grid-template-columns: repeat(3,1fr);
           gap: 1px;
-          background: rgba(255,255,255,0.06);
-          border: 1px solid rgba(255,255,255,0.06);
+          background: rgba(170,125,252,0.1);
+          border: 1px solid rgba(170,125,252,0.18);
         }
 
-        .praise-stat {
-          background: #0a0a0a;
+        .pr-stat {
+          background: #110C29;
           padding: 18px 14px;
         }
 
-        .praise-stat-num {
+        .pr-stat-num {
           font-family: 'Bebas Neue', sans-serif;
-          font-size: 32px;
+          font-size: 28px;
           letter-spacing: 0.05em;
-          color: #fff;
+          color: #AA7DFC;
           line-height: 1;
           margin-bottom: 4px;
         }
 
-        .praise-stat-label {
+        .pr-stat-lbl {
           font-size: 7px;
           letter-spacing: 0.25em;
           text-transform: uppercase;
@@ -612,17 +558,18 @@ export default function PraiseSection() {
         }
 
         /* ── Marquee ─────────────────────────────── */
-        .marquee-wrap {
-          border-top: 1px solid rgba(255,255,255,0.06);
-          border-bottom: 1px solid rgba(255,255,255,0.06);
+        .pr-marquee {
+          border-top: 1px solid rgba(170,125,252,0.08);
+          border-bottom: 1px solid rgba(170,125,252,0.08);
           margin-top: 80px;
           overflow: hidden;
-          padding: 14px 0;
+          padding: 13px 0;
           position: relative;
+          z-index: 1;
         }
 
-        .marquee-wrap::before,
-        .marquee-wrap::after {
+        .pr-marquee::before,
+        .pr-marquee::after {
           content: '';
           position: absolute;
           top: 0; bottom: 0;
@@ -630,59 +577,47 @@ export default function PraiseSection() {
           z-index: 2;
           pointer-events: none;
         }
-        .marquee-wrap::before { left: 0; background: linear-gradient(90deg, #0a0a0a, transparent); }
-        .marquee-wrap::after  { right: 0; background: linear-gradient(270deg, #0a0a0a, transparent); }
+        .pr-marquee::before { left: 0;  background: linear-gradient(90deg, #110C29, transparent); }
+        .pr-marquee::after  { right: 0; background: linear-gradient(270deg, #110C29, transparent); }
 
-        .marquee-track {
+        .pr-marquee-track {
           display: flex;
-          gap: 0;
           white-space: nowrap;
-          animation: marquee-scroll 22s linear infinite;
+          animation: pr-scroll 22s linear infinite;
           will-change: transform;
         }
-
-        @keyframes marquee-scroll {
-          0%   { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
+        @keyframes pr-scroll {
+          from { transform: translateX(0); }
+          to   { transform: translateX(-50%); }
         }
 
-        .marquee-item {
+        .pr-marquee-item {
           font-family: 'Bebas Neue', sans-serif;
-          font-size: 16px;
-          letter-spacing: 0.12em;
-          color: rgba(255,255,255,0.12);
-          padding: 0 20px;
+          font-size: 13px;
+          letter-spacing: 0.2em;
           text-transform: uppercase;
+          color: rgba(170,125,252,0.2);
+          padding: 0 22px;
           display: inline-flex;
           align-items: center;
-          gap: 20px;
+          gap: 22px;
         }
 
-        .marquee-dot {
-          font-size: 8px;
-          color: rgba(255,255,255,0.08);
-        }
-
-        @media (max-width: 600px) {
-          .praise-title { font-size: 52px; }
-          .tc-stack-wrap { height: 400px; }
-          .praise-stats { grid-template-columns: repeat(3,1fr); }
-        }
+        .pr-marquee-sep { font-size: 7px; color: rgba(170,125,252,0.1); }
       `}</style>
 
       <section id="testimonials">
+        <div className="pr-glow" />
 
-        {/* ── Header ──────────────────────────────── */}
-        <div className="praise-header">
+        {/* Header */}
+        <div className="pr-header">
           <div>
-            <p className="praise-eyebrow">praise — straight from the clients</p>
-            <h2 className="praise-title">
-              they said<br />
-              what they<br />
-              <em>said</em>
+            <p className="pr-eyebrow">praise — straight from the clients</p>
+            <h2 className="pr-title">
+              they said<br />what they<br /><em>said</em>
             </h2>
           </div>
-          <p className="praise-sub">
+          <p className="pr-sub">
             no cherry-picking,<br />
             no paid reviews —<br />
             just actual people<br />
@@ -690,11 +625,11 @@ export default function PraiseSection() {
           </p>
         </div>
 
-        {/* ── Body ────────────────────────────────── */}
-        <div className="praise-body">
+        {/* Body */}
+        <div className="pr-body">
 
-          {/* stacked cards */}
-          <div className="tc-stack-wrap" onClick={advance}>
+          {/* Stack */}
+          <div className="pr-stack" onClick={advance}>
             {[...deck].reverse().map((t, revIdx) => {
               const stackPos = deck.length - 1 - revIdx;
               return (
@@ -710,38 +645,36 @@ export default function PraiseSection() {
             })}
           </div>
 
-          {/* right panel */}
-          <div className="praise-right">
+          {/* Right panel */}
+          <div className="pr-right">
 
-            {/* dot navigation */}
-            <div className="praise-dots">
+            <div className="pr-dots">
               {TESTIMONIALS.map((t, i) => {
                 const isActive = deck[0]?.id === t.id;
                 return (
                   <div
                     key={t.id}
-                    className={`praise-dot-row${isActive ? " dot-active" : ""}`}
+                    className={`pr-dot-row${isActive ? " pr-dot-row--active" : ""}`}
                     onClick={() => jumpTo(i)}
                   >
-                    <div className="dot-pip" />
-                    <span className="dot-name">{t.name}</span>
-                    <span className="dot-service">{t.serviceLabel}</span>
-                    {isActive && <div className="dot-progress" key={`${t.id}-prog`} />}
+                    <div className="pr-pip" />
+                    <span className="pr-dot-name">{t.name}</span>
+                    <span className="pr-dot-svc">{t.serviceLabel}</span>
+                    {isActive && <div className="pr-dot-progress" key={`${t.id}-p`} />}
                   </div>
                 );
               })}
             </div>
 
-            {/* stats */}
-            <div className="praise-stats">
+            <div className="pr-stats">
               {[
-                { num: "7+",   label: "client stories"  },
-                { num: "★★★★★", label: "avg rating"      },
-                { num: "100%", label: "would refer us"   },
+                { num: "7+",    lbl: "client stories" },
+                { num: "★★★★★", lbl: "avg rating"     },
+                { num: "100%",  lbl: "would refer us"  },
               ].map((s, i) => (
-                <div key={i} className="praise-stat">
-                  <div className="praise-stat-num">{s.num}</div>
-                  <div className="praise-stat-label">{s.label}</div>
+                <div key={i} className="pr-stat">
+                  <div className="pr-stat-num">{s.num}</div>
+                  <div className="pr-stat-lbl">{s.lbl}</div>
                 </div>
               ))}
             </div>
@@ -749,8 +682,16 @@ export default function PraiseSection() {
           </div>
         </div>
 
-        {/* ── Marquee ─────────────────────────────── */}
-        <MarqueeStrip />
+        {/* Marquee */}
+        <div className="pr-marquee">
+          <div className="pr-marquee-track">
+            {MARQUEE_WORDS.map((w, i) => (
+              <span key={i} className="pr-marquee-item">
+                {w} <span className="pr-marquee-sep">◆</span>
+              </span>
+            ))}
+          </div>
+        </div>
 
       </section>
     </>
