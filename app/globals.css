@@ -17,6 +17,10 @@
   font-style: normal;
 }
 
+body {
+  background: #110c29;
+}
+
 .bg-main {
   background-color: var(--background);
   color: var(--priColor);
