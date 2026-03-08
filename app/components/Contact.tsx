@@ -147,8 +147,8 @@ function SuccessScreen() {
     <div className="cf-success">
       <div className="cf-success-icon">
         <svg viewBox="0 0 40 40" fill="none">
-          <circle cx="20" cy="20" r="19" stroke="#4fffb0" strokeWidth="1" />
-          <path d="M11 20.5l6 6 12-12" stroke="#4fffb0" strokeWidth="1.5"
+          <circle cx="20" cy="20" r="19" stroke="#AA7DFC" strokeWidth="1" />
+          <path d="M11 20.5l6 6 12-12" stroke="#AA7DFC" strokeWidth="1.5"
             strokeLinecap="round" strokeLinejoin="round"
             className="cf-check-path"
           />
@@ -192,7 +192,7 @@ export default function ContactSection() {
 
         /* ── Section ─────────────────────────────── */
         #contact {
-          background: #0a0a0a;
+          background: #110C29;
           padding: 120px 40px 100px;
           position: relative;
           overflow: hidden;
@@ -204,7 +204,7 @@ export default function ContactSection() {
           position: absolute;
           top: 0; bottom: 0;
           width: 1px;
-          background: rgba(255,255,255,0.04);
+          background: rgba(170,125,252,0.06);
         }
         #contact::before { left: 40px; }
         #contact::after  { right: 40px; }
@@ -215,7 +215,7 @@ export default function ContactSection() {
           top: 0; left: 0;
           height: 1px;
           width: 0;
-          background: linear-gradient(90deg, #4fffb0, #c9a96e, transparent);
+          background: linear-gradient(90deg, #AA7DFC, rgba(170,125,252,0.2), transparent);
           animation: ct-draw 1.2s cubic-bezier(0.16,1,0.3,1) 0.2s forwards;
         }
         @keyframes ct-draw { to { width: 100%; } }
@@ -227,7 +227,7 @@ export default function ContactSection() {
           right: -10px;
           font-family: 'Bebas Neue', sans-serif;
           font-size: clamp(100px, 16vw, 200px);
-          color: rgba(255,255,255,0.018);
+          color: rgba(170,125,252,0.03);
           letter-spacing: 0.05em;
           pointer-events: none;
           user-select: none;
@@ -276,7 +276,7 @@ export default function ContactSection() {
 
         .ct-title em {
           font-style: normal;
-          -webkit-text-stroke: 1px rgba(255,255,255,0.28);
+          -webkit-text-stroke: 1px #AA7DFC;
           color: transparent;
         }
 
@@ -294,7 +294,7 @@ export default function ContactSection() {
           align-items: flex-start;
           gap: 14px;
           padding: 18px 20px;
-          border: 1px solid rgba(255,255,255,0.07);
+          border: 1px solid rgba(170,125,252,0.14);
           background: rgba(79,255,176,0.03);
           border-left: 2px solid rgba(79,255,176,0.4);
         }
@@ -302,15 +302,15 @@ export default function ContactSection() {
         .ct-promise-dot {
           width: 6px; height: 6px;
           border-radius: 50%;
-          background: #4fffb0;
-          box-shadow: 0 0 8px #4fffb0;
+          background: #AA7DFC;
+          box-shadow: 0 0 8px #AA7DFC;
           animation: pulse 2s ease infinite;
           flex-shrink: 0;
           margin-top: 2px;
         }
         @keyframes pulse {
-          0%,100% { opacity:1; box-shadow: 0 0 8px #4fffb0; }
-          50%      { opacity:.4; box-shadow: 0 0 3px #4fffb0; }
+          0%,100% { opacity:1; box-shadow: 0 0 8px #AA7DFC; }
+          50%      { opacity:.4; box-shadow: 0 0 3px #AA7DFC; }
         }
 
         .ct-promise-text {
@@ -322,7 +322,7 @@ export default function ContactSection() {
         }
 
         .ct-promise-text strong {
-          color: #4fffb0;
+          color: #AA7DFC;
           font-weight: 500;
         }
 
@@ -339,13 +339,13 @@ export default function ContactSection() {
           text-transform: uppercase;
           color: rgba(255,255,255,0.25);
           text-decoration: none;
-          border: 1px solid rgba(255,255,255,0.08);
+          border: 1px solid rgba(170,125,252,0.16);
           padding: 6px 14px;
           transition: color 0.2s, border-color 0.2s;
         }
         .ct-social-link:hover {
           color: #fff;
-          border-color: rgba(255,255,255,0.3);
+          border-color: rgba(170,125,252,0.35);
         }
 
         /* ── Form ────────────────────────────────── */
@@ -394,7 +394,7 @@ export default function ContactSection() {
         }
 
         .cf-field--focused .cf-label {
-          color: #4fffb0;
+          color: #AA7DFC;
         }
 
         .cf-input {
@@ -402,7 +402,7 @@ export default function ContactSection() {
           width: 100%;
           background: none;
           border: none;
-          border-bottom: 1px solid rgba(255,255,255,0.1);
+          border-bottom: 1px solid rgba(170,125,252,0.18);
           padding: 8px 0 10px;
           font-family: 'Geist Mono', monospace;
           font-size: 12px;
@@ -435,7 +435,7 @@ export default function ContactSection() {
           font-family: 'Geist Mono', monospace;
           transition: color 0.2s;
         }
-        .cf-field--focused .cf-select-arrow { color: #4fffb0; }
+        .cf-field--focused .cf-select-arrow { color: #AA7DFC; }
 
         .cf-textarea {
           resize: none;
@@ -456,7 +456,7 @@ export default function ContactSection() {
         .cf-underline-fill {
           position: absolute;
           inset: 0;
-          background: #4fffb0;
+          background: #AA7DFC;
           transform: scaleX(0);
           transform-origin: left;
           transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
@@ -477,7 +477,7 @@ export default function ContactSection() {
           font-size: 8px;
           letter-spacing: 0.2em;
           text-transform: uppercase;
-          color: rgba(255,255,255,0.15);
+          color: rgba(170,125,252,0.25);
         }
 
         .ct-submit-btn {
@@ -487,8 +487,8 @@ export default function ContactSection() {
           font-size: 10px;
           letter-spacing: 0.28em;
           text-transform: uppercase;
-          color: #0a0a0a;
-          background: #fff;
+          color: #110C29;
+          background: #AA7DFC;
           border: none;
           cursor: pointer;
           overflow: hidden;
@@ -501,12 +501,14 @@ export default function ContactSection() {
           content: '';
           position: absolute;
           inset: 0;
-          background: #4fffb0;
+          background: #110C29;
+          border: 1px solid #AA7DFC;
           transform: translateX(-101%);
           transition: transform 0.4s cubic-bezier(0.77,0,0.18,1);
         }
 
         .ct-submit-btn:hover::before { transform: translateX(0); }
+        .ct-submit-btn:hover { color: #AA7DFC; }
         .ct-submit-btn:disabled {
           cursor: not-allowed;
           opacity: 0.6;
@@ -572,7 +574,7 @@ export default function ContactSection() {
         /* ── Footer strip ────────────────────────── */
         .ct-footer-strip {
           margin-top: 100px;
-          border-top: 1px solid rgba(255,255,255,0.06);
+          border-top: 1px solid rgba(170,125,252,0.08);
           padding-top: 32px;
           display: flex;
           align-items: center;
@@ -585,14 +587,14 @@ export default function ContactSection() {
           font-size: 8px;
           letter-spacing: 0.22em;
           text-transform: uppercase;
-          color: rgba(255,255,255,0.15);
+          color: rgba(170,125,252,0.25);
         }
 
         .ct-footer-name {
           font-family: 'Bebas Neue', sans-serif;
           font-size: 18px;
           letter-spacing: 0.12em;
-          color: rgba(255,255,255,0.08);
+          color: rgba(170,125,252,0.12);
         }
       `}</style>
 
