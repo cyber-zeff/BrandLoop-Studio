@@ -133,11 +133,11 @@ export default function Footer() {
 
         /* ── Footer shell ────────────────────────── */
         .ft-root {
-          background: #080808;
+          background: #0c0820;
           position: relative;
           overflow: hidden;
           font-family: 'Geist Mono', monospace;
-          border-top: 1px solid rgba(255,255,255,0.07);
+          border-top: 1px solid rgba(170,125,252,0.12);
         }
 
         /* noise */
@@ -159,7 +159,7 @@ export default function Footer() {
           top: 0; bottom: 0;
           left: 40px;
           width: 1px;
-          background: rgba(255,255,255,0.03);
+          background: rgba(170,125,252,0.05);
         }
 
         /* ── BIG WORDMARK ─────────────────────────── */
@@ -176,7 +176,7 @@ export default function Footer() {
           letter-spacing: 0.03em;
           line-height: 0.85;
           color: transparent;
-          -webkit-text-stroke: 1px rgba(255,255,255,0.07);
+          -webkit-text-stroke: 1px rgba(170,125,252,0.12);
           user-select: none;
           pointer-events: none;
           display: block;
@@ -188,8 +188,8 @@ export default function Footer() {
           position: relative;
           overflow: hidden;
           padding: 16px 0;
-          border-top: 1px solid rgba(255,255,255,0.05);
-          border-bottom: 1px solid rgba(255,255,255,0.05);
+          border-top: 1px solid rgba(170,125,252,0.1);
+          border-bottom: 1px solid rgba(170,125,252,0.1);
           z-index: 1;
         }
 
@@ -202,8 +202,8 @@ export default function Footer() {
           z-index: 2;
           pointer-events: none;
         }
-        .ft-marquee::before { left: 0;  background: linear-gradient(90deg, #080808, transparent); }
-        .ft-marquee::after  { right: 0; background: linear-gradient(270deg, #080808, transparent); }
+        .ft-marquee::before { left: 0;  background: linear-gradient(90deg, #0c0820, transparent); }
+        .ft-marquee::after  { right: 0; background: linear-gradient(270deg, #0c0820, transparent); }
 
         .ft-marquee-track {
           display: flex;
@@ -218,7 +218,7 @@ export default function Footer() {
           font-size: 13px;
           letter-spacing: 0.25em;
           text-transform: uppercase;
-          color: rgba(255,255,255,0.08);
+          color: rgba(170,125,252,0.16);
           padding: 0 24px;
           display: inline-flex;
           align-items: center;
@@ -227,7 +227,7 @@ export default function Footer() {
 
         .ft-marquee-sep {
           width: 4px; height: 4px;
-          background: rgba(255,255,255,0.1);
+          background: rgba(170,125,252,0.08);
           border-radius: 50%;
           flex-shrink: 0;
         }
@@ -276,14 +276,14 @@ export default function Footer() {
         .ft-logo-sub {
           font-size: 8px;
           letter-spacing: 0.35em;
-          color: rgba(255,255,255,0.25);
+          color: rgba(255,255,255,0.28);
           text-transform: uppercase;
         }
 
         .ft-tagline {
           font-size: 9px;
           letter-spacing: 0.15em;
-          color: rgba(255,255,255,0.25);
+          color: rgba(255,255,255,0.28);
           text-transform: uppercase;
           line-height: 1.9;
           max-width: 220px;
@@ -299,8 +299,8 @@ export default function Footer() {
           font-size: 9px;
           letter-spacing: 0.25em;
           text-transform: uppercase;
-          color: #0a0a0a;
-          background: #fff;
+          color: #110C29;
+          background: #AA7DFC;
           text-decoration: none;
           width: fit-content;
           position: relative;
@@ -313,11 +313,13 @@ export default function Footer() {
           content: '';
           position: absolute;
           inset: 0;
-          background: #4fffb0;
+          background: #110C29;
+          border: 1px solid #AA7DFC;
           transform: translateX(-101%);
           transition: transform 0.35s cubic-bezier(0.77,0,0.18,1);
         }
         .ft-cta-magnetic:hover::before { transform: translateX(0); }
+        .ft-cta-magnetic:hover { color: #AA7DFC; }
         .ft-cta-magnetic span { position: relative; z-index: 1; }
 
         /* clock */
@@ -331,20 +333,20 @@ export default function Footer() {
         .ft-clock-dot {
           width: 5px; height: 5px;
           border-radius: 50%;
-          background: #4fffb0;
-          box-shadow: 0 0 6px #4fffb0;
+          background: #AA7DFC;
+          box-shadow: 0 0 6px #AA7DFC;
           animation: ft-pulse 2s ease infinite;
           flex-shrink: 0;
         }
         @keyframes ft-pulse {
-          0%,100% { opacity:1; box-shadow: 0 0 6px #4fffb0; }
-          50%      { opacity:.4; box-shadow: 0 0 2px #4fffb0; }
+          0%,100% { opacity:1; box-shadow: 0 0 6px #AA7DFC; }
+          50%      { opacity:.4; box-shadow: 0 0 2px #AA7DFC; }
         }
 
         .ft-clock-label {
           font-size: 7px;
           letter-spacing: 0.3em;
-          color: rgba(255,255,255,0.2);
+          color: rgba(255,255,255,0.25);
           text-transform: uppercase;
         }
 
@@ -362,9 +364,9 @@ export default function Footer() {
           font-size: 7px;
           letter-spacing: 0.4em;
           text-transform: uppercase;
-          color: rgba(255,255,255,0.2);
+          color: rgba(255,255,255,0.25);
           padding-bottom: 12px;
-          border-bottom: 1px solid rgba(255,255,255,0.06);
+          border-bottom: 1px solid rgba(170,125,252,0.1);
         }
 
         .ft-nav-links {
@@ -410,9 +412,9 @@ export default function Footer() {
           display: grid;
           grid-template-columns: repeat(4, 1fr);
           gap: 1px;
-          background: rgba(255,255,255,0.05);
-          border-top: 1px solid rgba(255,255,255,0.05);
-          border-bottom: 1px solid rgba(255,255,255,0.05);
+          background: rgba(170,125,252,0.04);
+          border-top: 1px solid rgba(170,125,252,0.1);
+          border-bottom: 1px solid rgba(170,125,252,0.1);
           margin: 48px 0 0;
           position: relative;
           z-index: 1;
@@ -423,7 +425,7 @@ export default function Footer() {
         }
 
         .ft-stat {
-          background: #080808;
+          background: #0c0820;
           padding: 24px 40px;
           display: flex;
           flex-direction: column;
@@ -434,7 +436,7 @@ export default function Footer() {
           font-family: 'Bebas Neue', sans-serif;
           font-size: 40px;
           letter-spacing: 0.05em;
-          color: #fff;
+          color: #AA7DFC;
           line-height: 1;
         }
 
@@ -442,7 +444,7 @@ export default function Footer() {
           font-size: 7px;
           letter-spacing: 0.28em;
           text-transform: uppercase;
-          color: rgba(255,255,255,0.18);
+          color: rgba(255,255,255,0.22);
         }
 
         /* ── Bottom bar ──────────────────────────── */
@@ -455,14 +457,14 @@ export default function Footer() {
           gap: 16px;
           position: relative;
           z-index: 1;
-          border-top: 1px solid rgba(255,255,255,0.05);
+          border-top: 1px solid rgba(170,125,252,0.1);
         }
 
         .ft-bottom-copy {
           font-size: 8px;
           letter-spacing: 0.2em;
           text-transform: uppercase;
-          color: rgba(255,255,255,0.12);
+          color: rgba(170,125,252,0.2);
         }
 
         .ft-bottom-center {
@@ -474,7 +476,7 @@ export default function Footer() {
         .ft-bottom-dot {
           width: 3px; height: 3px;
           border-radius: 50%;
-          background: rgba(255,255,255,0.1);
+          background: rgba(170,125,252,0.08);
           flex-shrink: 0;
         }
 
@@ -485,9 +487,9 @@ export default function Footer() {
           font-size: 8px;
           letter-spacing: 0.25em;
           text-transform: uppercase;
-          color: rgba(255,255,255,0.2);
+          color: rgba(255,255,255,0.25);
           background: none;
-          border: 1px solid rgba(255,255,255,0.08);
+          border: 1px solid rgba(170,125,252,0.16);
           padding: 7px 14px;
           cursor: pointer;
           font-family: 'Geist Mono', monospace;
@@ -495,7 +497,7 @@ export default function Footer() {
         }
         .ft-scroll-top:hover {
           color: #fff;
-          border-color: rgba(255,255,255,0.3);
+          border-color: rgba(170,125,252,0.35);
         }
 
         .ft-scroll-arrow {
