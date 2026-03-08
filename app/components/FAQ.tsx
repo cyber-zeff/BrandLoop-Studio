@@ -64,32 +64,27 @@ const FAQS: FaqItem[] = [
 
 // ─── Typewriter hook ──────────────────────────────────────────────────────────
 
-function useTypewriter(text: string, active: boolean, speed = 12) {
+function useTypewriter(text: string, active: boolean, speed = 10) {
   const [displayed, setDisplayed] = useState("");
   const frameRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
-    if (!active) {
-      setDisplayed("");
-      return;
-    }
+    if (!active) { setDisplayed(""); return; }
     setDisplayed("");
     let i = 0;
     const tick = () => {
       i++;
       setDisplayed(text.slice(0, i));
-      if (i < text.length) {
-        frameRef.current = setTimeout(tick, speed);
-      }
+      if (i < text.length) frameRef.current = setTimeout(tick, speed);
     };
-    frameRef.current = setTimeout(tick, 60); // small initial delay
+    frameRef.current = setTimeout(tick, 60);
     return () => { if (frameRef.current) clearTimeout(frameRef.current); };
   }, [active, text, speed]);
 
   return displayed;
 }
 
-// ─── FAQ Item ─────────────────────────────────────────────────────────────────
+// ─── FAQ Row ──────────────────────────────────────────────────────────────────
 
 function FaqRow({ item, index, isOpen, onToggle }: {
   item: FaqItem;
@@ -97,69 +92,53 @@ function FaqRow({ item, index, isOpen, onToggle }: {
   isOpen: boolean;
   onToggle: () => void;
 }) {
-  const answerText = useTypewriter(item.a, isOpen, 10);
-  const answerRef  = useRef<HTMLDivElement>(null);
+  const answerText = useTypewriter(item.a, isOpen);
+  const innerRef   = useRef<HTMLDivElement>(null);
   const [height, setHeight] = useState(0);
 
-  // measure real height for smooth expand
   useEffect(() => {
-    if (!answerRef.current) return;
-    if (isOpen) {
-      // give typewriter time to fill — re-measure on every char change
-      setHeight(answerRef.current.scrollHeight + 48);
-    } else {
-      setHeight(0);
-    }
+    if (!innerRef.current) return;
+    setHeight(isOpen ? innerRef.current.scrollHeight + 48 : 0);
   }, [isOpen, answerText]);
 
   return (
     <div
-      className={`faq-row${isOpen ? " faq-row--open" : ""}`}
-      style={{ "--delay": `${index * 0.06}s` } as React.CSSProperties}
+      className={`fq-row${isOpen ? " fq-row--open" : ""}`}
+      style={{ "--fq-delay": `${index * 0.055}s` } as React.CSSProperties}
     >
       {/* question bar */}
-      <button className="faq-q-bar" onClick={onToggle} aria-expanded={isOpen}>
-
-        {/* left: index + tag */}
-        <div className="faq-q-left">
-          <span className="faq-idx">
-            <span className="faq-idx-prompt">~/faq</span>
-            <span className="faq-idx-num">[{String(index + 1).padStart(2, "0")}]</span>
+      <button className="fq-bar" onClick={onToggle} aria-expanded={isOpen}>
+        <div className="fq-bar-left">
+          <span className="fq-idx">
+            <span className="fq-idx-path">~/faq</span>
+            <span className="fq-idx-num">[{String(index + 1).padStart(2,"0")}]</span>
           </span>
-          <span className="faq-tag">{item.tag}</span>
-          <span className="faq-q-text">{item.q}</span>
+          <span className="fq-tag">{item.tag}</span>
+          <span className="fq-question">{item.q}</span>
         </div>
-
-        {/* right: animated toggle icon */}
-        <div className="faq-icon" aria-hidden>
-          <span className={`faq-icon-h`} />
-          <span className={`faq-icon-v${isOpen ? " faq-icon-v--hide" : ""}`} />
+        <div className="fq-icon" aria-hidden>
+          <span className="fq-icon-h" />
+          <span className={`fq-icon-v${isOpen ? " fq-icon-v--hide" : ""}`} />
         </div>
       </button>
 
-      {/* answer — height-animated container */}
-      <div
-        className="faq-a-wrap"
-        style={{ maxHeight: `${height}px` }}
-      >
-        <div className="faq-a-inner" ref={answerRef}>
-          {/* terminal prompt line */}
-          <div className="faq-terminal-line">
-            <span className="faq-prompt-sym">▶</span>
-            <span className="faq-prompt-cmd">brandloop --answer</span>
+      {/* answer */}
+      <div className="fq-answer-wrap" style={{ maxHeight: `${height}px` }}>
+        <div className="fq-answer-inner" ref={innerRef}>
+          <div className="fq-terminal-prompt">
+            <span className="fq-prompt-sym">▶</span>
+            <span className="fq-prompt-cmd">brandloop --answer</span>
           </div>
-
-          <p className="faq-a-text">
+          <p className="fq-answer-text">
             {answerText}
             {isOpen && answerText.length < item.a.length && (
-              <span className="faq-cursor">▌</span>
+              <span className="fq-cursor">▌</span>
             )}
           </p>
         </div>
       </div>
 
-      {/* bottom border draw animation */}
-      <div className="faq-border-draw" />
+      <div className="fq-border-bottom" />
     </div>
   );
 }
@@ -168,14 +147,12 @@ function FaqRow({ item, index, isOpen, onToggle }: {
 
 export default function FaqSection() {
   const [openId, setOpenId] = useState<number | null>(null);
-  const [filter, setFilter] = useState<string>("all");
+  const [filter, setFilter] = useState("all");
 
-  const tags = ["all", ...Array.from(new Set(FAQS.map(f => f.tag)))];
+  const tags    = ["all", ...Array.from(new Set(FAQS.map(f => f.tag)))];
   const visible = filter === "all" ? FAQS : FAQS.filter(f => f.tag === filter);
 
-  const toggle = (id: number) => {
-    setOpenId(prev => (prev === id ? null : id));
-  };
+  const toggle = (id: number) => setOpenId(prev => prev === id ? null : id);
 
   return (
     <>
@@ -184,7 +161,7 @@ export default function FaqSection() {
 
         /* ── Section ─────────────────────────────── */
         #faq {
-          background: #0a0a0a;
+          background: #110C29;
           padding: 120px 40px 100px;
           position: relative;
           overflow: hidden;
@@ -196,144 +173,158 @@ export default function FaqSection() {
           position: absolute;
           top: 0; bottom: 0;
           width: 1px;
-          background: rgba(255,255,255,0.04);
+          background: rgba(170,125,252,0.06);
         }
         #faq::before { left: 40px; }
         #faq::after  { right: 40px; }
 
-        /* big ghost text bg */
-        .faq-ghost {
+        /* ghost bg text */
+        .fq-ghost {
           position: absolute;
-          top: 80px;
-          right: -20px;
+          top: 80px; right: -20px;
           font-family: 'Bebas Neue', sans-serif;
           font-size: clamp(120px, 18vw, 220px);
-          color: rgba(255,255,255,0.02);
+          color: rgba(170,125,252,0.03);
           letter-spacing: 0.05em;
           pointer-events: none;
           user-select: none;
           line-height: 1;
         }
 
+        /* ambient glow */
+        .fq-glow {
+          position: absolute;
+          bottom: -100px; left: -100px;
+          width: 500px; height: 500px;
+          border-radius: 50%;
+          background: radial-gradient(circle, rgba(170,125,252,0.06) 0%, transparent 65%);
+          pointer-events: none;
+          z-index: 0;
+        }
+
         /* ── Header ──────────────────────────────── */
-        .faq-header {
+        .fq-header {
           display: flex;
           align-items: flex-end;
           justify-content: space-between;
           gap: 32px;
           flex-wrap: wrap;
-          margin-bottom: 56px;
+          margin-bottom: 52px;
+          position: relative;
+          z-index: 1;
         }
 
-        .faq-eyebrow {
+        .fq-eyebrow {
           font-size: 9px;
           letter-spacing: 0.35em;
           text-transform: uppercase;
-          color: rgba(255,255,255,0.25);
+          color: #AA7DFC;
+          opacity: 0.75;
           margin-bottom: 10px;
         }
 
-        .faq-title {
+        .fq-title {
           font-family: 'Bebas Neue', sans-serif;
           font-size: clamp(52px, 9vw, 100px);
           letter-spacing: 0.04em;
-          color: #fff;
+          color: #ffffff;
           line-height: 0.9;
         }
 
-        .faq-title em {
+        .fq-title em {
           font-style: normal;
-          -webkit-text-stroke: 1px rgba(255,255,255,0.3);
+          -webkit-text-stroke: 1px #AA7DFC;
           color: transparent;
         }
 
-        .faq-sub {
+        .fq-sub {
           font-size: 10px;
           letter-spacing: 0.2em;
-          color: rgba(255,255,255,0.28);
+          color: rgba(255,255,255,0.25);
           text-transform: uppercase;
           line-height: 1.9;
-          max-width: 240px;
+          max-width: 220px;
         }
 
         /* ── Filter tabs ─────────────────────────── */
-        .faq-filters {
+        .fq-filters {
           display: flex;
           gap: 4px;
           margin-bottom: 40px;
           flex-wrap: wrap;
+          position: relative;
+          z-index: 1;
         }
 
-        .faq-filter-btn {
+        .fq-filter-btn {
           padding: 6px 16px;
           font-family: 'Geist Mono', monospace;
           font-size: 9px;
           letter-spacing: 0.22em;
           text-transform: uppercase;
-          color: rgba(255,255,255,0.3);
+          color: rgba(255,255,255,0.28);
           background: none;
-          border: 1px solid rgba(255,255,255,0.08);
+          border: 1px solid rgba(170,125,252,0.14);
           cursor: pointer;
           transition: color 0.2s, border-color 0.2s, background 0.2s;
           position: relative;
           overflow: hidden;
         }
 
-        .faq-filter-btn::before {
+        .fq-filter-btn::before {
           content: '';
           position: absolute;
           inset: 0;
-          background: #fff;
+          background: #AA7DFC;
           transform: translateY(101%);
           transition: transform 0.25s cubic-bezier(0.77,0,0.18,1);
         }
 
-        .faq-filter-btn span { position: relative; z-index: 1; }
+        .fq-filter-btn span { position: relative; z-index: 1; }
 
-        .faq-filter-btn.active {
-          color: #0a0a0a;
-          border-color: #fff;
+        .fq-filter-btn:hover:not(.fq-filter-btn--active) {
+          color: #AA7DFC;
+          border-color: rgba(170,125,252,0.3);
         }
-        .faq-filter-btn.active::before { transform: translateY(0); }
-        .faq-filter-btn:hover:not(.active) { color: #fff; border-color: rgba(255,255,255,0.3); }
+
+        .fq-filter-btn--active {
+          color: #110C29;
+          border-color: #AA7DFC;
+        }
+        .fq-filter-btn--active::before { transform: translateY(0); }
 
         /* ── FAQ list ────────────────────────────── */
-        .faq-list {
+        .fq-list {
+          border-top: 1px solid rgba(170,125,252,0.1);
           display: flex;
           flex-direction: column;
-          gap: 0;
           position: relative;
           z-index: 1;
-          border-top: 1px solid rgba(255,255,255,0.07);
         }
 
         /* ── Row ─────────────────────────────────── */
-        .faq-row {
+        .fq-row {
           position: relative;
-          animation: row-in 0.45s cubic-bezier(0.16,1,0.3,1) both;
-          animation-delay: var(--delay);
+          animation: fq-in 0.45s cubic-bezier(0.16,1,0.3,1) both;
+          animation-delay: var(--fq-delay);
         }
 
-        @keyframes row-in {
-          from { opacity: 0; transform: translateX(-12px); }
+        @keyframes fq-in {
+          from { opacity: 0; transform: translateX(-10px); }
           to   { opacity: 1; transform: translateX(0); }
         }
 
-        /* bottom border that draws in on hover/open */
-        .faq-border-draw {
+        .fq-border-bottom {
           position: absolute;
-          bottom: 0; left: 0;
+          bottom: 0; left: 0; right: 0;
           height: 1px;
-          width: 100%;
-          background: rgba(255,255,255,0.07);
+          background: rgba(170,125,252,0.08);
+          transition: background 0.2s;
         }
-
-        .faq-row--open .faq-border-draw {
-          background: rgba(255,255,255,0.15);
-        }
+        .fq-row--open .fq-border-bottom { background: rgba(170,125,252,0.22); }
 
         /* ── Question bar ────────────────────────── */
-        .faq-q-bar {
+        .fq-bar {
           width: 100%;
           display: flex;
           align-items: center;
@@ -347,204 +338,203 @@ export default function FaqSection() {
           transition: background 0.2s;
         }
 
-        .faq-q-bar:hover { background: rgba(255,255,255,0.015); }
-        .faq-row--open .faq-q-bar { background: rgba(255,255,255,0.02); }
+        .fq-bar:hover         { background: rgba(170,125,252,0.03); }
+        .fq-row--open .fq-bar { background: rgba(170,125,252,0.04); }
 
-        .faq-q-left {
+        .fq-bar-left {
           display: flex;
           align-items: center;
-          gap: 16px;
+          gap: 14px;
           flex: 1;
           flex-wrap: wrap;
         }
 
         /* terminal index */
-        .faq-idx {
+        .fq-idx {
           display: flex;
           align-items: center;
           gap: 4px;
           flex-shrink: 0;
         }
 
-        .faq-idx-prompt {
+        .fq-idx-path {
           font-size: 8px;
           letter-spacing: 0.1em;
-          color: rgba(255,255,255,0.15);
+          color: rgba(170,125,252,0.3);
           font-family: 'Geist Mono', monospace;
         }
 
-        .faq-idx-num {
+        .fq-idx-num {
           font-size: 9px;
           letter-spacing: 0.15em;
-          color: #4fffb0;
-          opacity: 0.7;
+          color: #AA7DFC;
+          opacity: 0.65;
           font-family: 'Geist Mono', monospace;
           min-width: 32px;
         }
 
-        .faq-tag {
+        /* category tag chip */
+        .fq-tag {
           font-size: 7px;
           letter-spacing: 0.25em;
           text-transform: uppercase;
-          color: rgba(255,255,255,0.2);
-          border: 1px solid rgba(255,255,255,0.08);
+          color: rgba(170,125,252,0.3);
+          border: 1px solid rgba(170,125,252,0.1);
           padding: 2px 7px;
           flex-shrink: 0;
           transition: color 0.2s, border-color 0.2s;
         }
-
-        .faq-row--open .faq-tag {
-          color: rgba(255,255,255,0.5);
-          border-color: rgba(255,255,255,0.2);
+        .fq-row--open .fq-tag {
+          color: #AA7DFC;
+          border-color: rgba(170,125,252,0.3);
         }
 
-        .faq-q-text {
+        /* question text */
+        .fq-question {
           font-family: 'Geist Mono', monospace;
           font-size: clamp(11px, 1.4vw, 14px);
-          letter-spacing: 0.08em;
-          color: rgba(255,255,255,0.6);
+          letter-spacing: 0.07em;
+          color: rgba(255,255,255,0.5);
           text-transform: lowercase;
           transition: color 0.2s;
           line-height: 1.4;
         }
+        .fq-row--open .fq-question,
+        .fq-bar:hover .fq-question { color: #ffffff; }
 
-        .faq-row--open .faq-q-text,
-        .faq-q-bar:hover .faq-q-text {
-          color: #fff;
-        }
-
-        /* plus/minus icon */
-        .faq-icon {
-          width: 18px;
-          height: 18px;
+        /* +/− icon */
+        .fq-icon {
+          width: 18px; height: 18px;
           position: relative;
           flex-shrink: 0;
           margin-right: 4px;
         }
 
-        .faq-icon-h,
-        .faq-icon-v {
+        .fq-icon-h,
+        .fq-icon-v {
           position: absolute;
-          background: rgba(255,255,255,0.35);
+          background: rgba(255,255,255,0.25);
           transition: transform 0.3s ease, opacity 0.3s ease, background 0.2s;
         }
 
-        .faq-icon-h {
+        .fq-icon-h {
           width: 18px; height: 1px;
           top: 50%; left: 0;
           transform: translateY(-50%);
         }
 
-        .faq-icon-v {
+        .fq-icon-v {
           width: 1px; height: 18px;
           left: 50%; top: 0;
           transform: translateX(-50%);
         }
 
-        .faq-icon-v--hide {
+        .fq-icon-v--hide {
           transform: translateX(-50%) rotate(90deg);
           opacity: 0;
         }
 
-        .faq-row--open .faq-icon-h,
-        .faq-row--open .faq-icon-v { background: #4fffb0; }
+        .fq-row--open .fq-icon-h,
+        .fq-row--open .fq-icon-v { background: #AA7DFC; }
 
-        /* ── Answer wrapper ──────────────────────── */
-        .faq-a-wrap {
+        /* ── Answer ──────────────────────────────── */
+        .fq-answer-wrap {
           max-height: 0;
           overflow: hidden;
           transition: max-height 0.5s cubic-bezier(0.16,1,0.3,1);
         }
 
-        .faq-a-inner {
+        .fq-answer-inner {
           padding: 0 0 28px 60px;
           position: relative;
         }
 
-        /* left accent bar */
-        .faq-a-inner::before {
+        /* left gradient bar */
+        .fq-answer-inner::before {
           content: '';
           position: absolute;
           left: 26px;
           top: 0; bottom: 28px;
           width: 1px;
-          background: linear-gradient(180deg, #4fffb0 0%, transparent 100%);
-          opacity: 0.4;
+          background: linear-gradient(180deg, #AA7DFC 0%, transparent 100%);
+          opacity: 0.3;
         }
 
-        /* terminal prompt line */
-        .faq-terminal-line {
+        /* terminal prompt */
+        .fq-terminal-prompt {
           display: flex;
           align-items: center;
           gap: 8px;
-          margin-bottom: 12px;
+          margin-bottom: 10px;
         }
 
-        .faq-prompt-sym {
+        .fq-prompt-sym {
           font-size: 8px;
-          color: #4fffb0;
-          opacity: 0.7;
+          color: #AA7DFC;
+          opacity: 0.65;
         }
 
-        .faq-prompt-cmd {
+        .fq-prompt-cmd {
           font-size: 8px;
           letter-spacing: 0.2em;
-          color: rgba(255,255,255,0.2);
+          color: rgba(170,125,252,0.3);
           font-family: 'Geist Mono', monospace;
         }
 
-        /* answer text */
-        .faq-a-text {
+        /* answer text — typewriter output */
+        .fq-answer-text {
           font-size: clamp(10px, 1.2vw, 12px);
-          letter-spacing: 0.08em;
-          color: rgba(255,255,255,0.5);
+          letter-spacing: 0.07em;
+          color: rgba(255,255,255,0.45);
           line-height: 1.9;
           font-family: 'Geist Mono', monospace;
           max-width: 680px;
         }
 
         /* blinking cursor */
-        .faq-cursor {
+        .fq-cursor {
           display: inline-block;
-          color: #4fffb0;
-          animation: blink 0.7s steps(1) infinite;
+          color: #AA7DFC;
+          animation: fq-blink 0.7s steps(1) infinite;
           font-size: 11px;
           vertical-align: text-bottom;
           margin-left: 2px;
         }
 
-        @keyframes blink {
+        @keyframes fq-blink {
           0%, 100% { opacity: 1; }
           50%       { opacity: 0; }
         }
 
         /* ── Bottom CTA ──────────────────────────── */
-        .faq-bottom {
-          margin-top: 64px;
+        .fq-bottom {
+          margin-top: 60px;
           display: flex;
           align-items: center;
           justify-content: space-between;
           gap: 24px;
           flex-wrap: wrap;
-          border-top: 1px solid rgba(255,255,255,0.06);
-          padding-top: 36px;
+          border-top: 1px solid rgba(170,125,252,0.08);
+          padding-top: 32px;
+          position: relative;
+          z-index: 1;
         }
 
-        .faq-bottom-left p {
+        .fq-bottom-text {
           font-size: 9px;
-          letter-spacing: 0.2em;
+          letter-spacing: 0.18em;
           text-transform: uppercase;
-          color: rgba(255,255,255,0.25);
+          color: rgba(255,255,255,0.22);
           line-height: 1.9;
-          max-width: 360px;
+          max-width: 380px;
         }
 
-        .faq-bottom-left p strong {
-          color: rgba(255,255,255,0.55);
+        .fq-bottom-text strong {
+          color: rgba(255,255,255,0.5);
           font-weight: 500;
         }
 
-        .faq-contact-btn {
+        .fq-bottom-cta {
           position: relative;
           display: inline-block;
           padding: 12px 28px;
@@ -552,52 +542,54 @@ export default function FaqSection() {
           font-size: 9px;
           letter-spacing: 0.28em;
           text-transform: uppercase;
-          color: #0a0a0a;
-          background: #fff;
+          color: #110C29;
+          background: #AA7DFC;
           text-decoration: none;
           overflow: hidden;
           transition: color 0.3s;
           white-space: nowrap;
         }
 
-        .faq-contact-btn::before {
+        .fq-bottom-cta::before {
           content: '';
           position: absolute;
           inset: 0;
-          background: #4fffb0;
+          background: #110C29;
+          border: 1px solid #AA7DFC;
           transform: translateX(-101%);
           transition: transform 0.35s cubic-bezier(0.77,0,0.18,1);
         }
 
-        .faq-contact-btn span { position: relative; z-index: 1; }
-        .faq-contact-btn:hover::before { transform: translateX(0); }
+        .fq-bottom-cta span { position: relative; z-index: 1; }
+        .fq-bottom-cta:hover { color: #AA7DFC; }
+        .fq-bottom-cta:hover::before { transform: translateX(0); }
 
         /* ── Responsive ──────────────────────────── */
         @media (max-width: 600px) {
           #faq { padding: 80px 20px 80px; }
-          .faq-title { font-size: 52px; }
-          .faq-a-inner { padding-left: 20px; }
-          .faq-a-inner::before { left: 6px; }
-          .faq-idx-prompt { display: none; }
-          .faq-q-left { gap: 10px; }
+          .fq-title { font-size: 52px; }
+          .fq-answer-inner { padding-left: 22px; }
+          .fq-answer-inner::before { left: 6px; }
+          .fq-idx-path { display: none; }
+          .fq-bar-left { gap: 8px; }
         }
       `}</style>
 
       <section id="faq">
-        {/* ghost bg text */}
-        <div className="faq-ghost" aria-hidden>FAQ</div>
+        <div className="fq-ghost" aria-hidden>FAQ</div>
+        <div className="fq-glow" />
 
         {/* ── Header ──────────────────────────────── */}
-        <div className="faq-header">
+        <div className="fq-header">
           <div>
-            <p className="faq-eyebrow">faq — we read your mind</p>
-            <h2 className="faq-title">
+            <p className="fq-eyebrow">faq — we read your mind</p>
+            <h2 className="fq-title">
               stuff you're<br />
               probably<br />
               <em>wondering</em>
             </h2>
           </div>
-          <p className="faq-sub">
+          <p className="fq-sub">
             real answers,<br />
             not corporate<br />
             non-answers.
@@ -605,11 +597,11 @@ export default function FaqSection() {
         </div>
 
         {/* ── Filters ─────────────────────────────── */}
-        <div className="faq-filters">
+        <div className="fq-filters">
           {tags.map(tag => (
             <button
               key={tag}
-              className={`faq-filter-btn${filter === tag ? " active" : ""}`}
+              className={`fq-filter-btn${filter === tag ? " fq-filter-btn--active" : ""}`}
               onClick={() => { setFilter(tag); setOpenId(null); }}
             >
               <span>{tag}</span>
@@ -618,7 +610,7 @@ export default function FaqSection() {
         </div>
 
         {/* ── List ────────────────────────────────── */}
-        <div className="faq-list">
+        <div className="fq-list">
           {visible.map((item, i) => (
             <FaqRow
               key={item.id}
@@ -631,15 +623,13 @@ export default function FaqSection() {
         </div>
 
         {/* ── Bottom ──────────────────────────────── */}
-        <div className="faq-bottom">
-          <div className="faq-bottom-left">
-            <p>
-              still got a question that's not up there?{" "}
-              <strong>just message us directly</strong> — we reply same day,
-              no autoresponder, actual humans.
-            </p>
-          </div>
-          <a href="#contact" className="faq-contact-btn">
+        <div className="fq-bottom">
+          <p className="fq-bottom-text">
+            still got a question that's not up there?{" "}
+            <strong>just message us directly</strong> — we reply same day,
+            no autoresponder, actual humans.
+          </p>
+          <a href="#contact" className="fq-bottom-cta">
             <span>ask us anything →</span>
           </a>
         </div>
