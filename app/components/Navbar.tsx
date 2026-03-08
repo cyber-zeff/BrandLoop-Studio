@@ -3,11 +3,11 @@
 import { useEffect, useState, useRef } from "react";
 
 const NAV_LINKS = [
-  { label: "Work",      href: "#projects"     },
-  { label: "Services",  href: "#services"     },
-  { label: "Rates",     href: "#offers"       },
-  { label: "Praise",    href: "#testimonials" },
-  { label: "FAQ",       href: "#faq"          },
+  { label: "Work", href: "#projects" },
+  { label: "Services", href: "#services" },
+  { label: "Rates", href: "#offers" },
+  { label: "Praise", href: "#testimonials" },
+  { label: "FAQ", href: "#faq" },
 ];
 
 function LiveClock() {
@@ -43,8 +43,8 @@ function LiveClock() {
 }
 
 export default function Navbar() {
-  const [scrolled, setScrolled]   = useState(false);
-  const [menuOpen, setMenuOpen]   = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const [activeLink, setActiveLink] = useState<string | null>(null);
   const navRef = useRef<HTMLElement>(null);
 
@@ -379,6 +379,23 @@ export default function Navbar() {
           z-index: 1;
           text-align: center;
           gap: 16px;
+          opacity: 0;
+          transform: scale(0.9) translateY(10px);
+          animation: heroPop 0.7s cubic-bezier(.17,.67,.3,1.33) forwards;
+        }
+        @keyframes heroPop {
+          0% {
+            opacity: 0;
+            transform: scale(0.9) translateY(10px);
+          }
+          60% {
+            opacity: 1;
+            transform: scale(1.05) translateY(-2px);
+          }
+          100% {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+          }
         }
 
         .demo-hero-eyebrow {
