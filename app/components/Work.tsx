@@ -304,7 +304,7 @@ export default function WorkSection() {
         }
 
         .work-eyebrow {
-          font-size: 9px;
+          font-size: 11px;
           letter-spacing: 0.35em;
           text-transform: uppercase;
           color: var(--accent);
@@ -328,7 +328,7 @@ export default function WorkSection() {
         }
 
         .work-tagline {
-          font-size: 10px;
+          font-size: 11px;
           letter-spacing: 0.2em;
           color: rgba(255,255,255,0.28);
           max-width: 220px;
@@ -350,7 +350,7 @@ export default function WorkSection() {
         .wf-btn {
           padding: 7px 18px;
           font-family: 'Geist Mono', monospace;
-          font-size: 9px;
+          font-size: 10px;
           letter-spacing: 0.25em;
           text-transform: uppercase;
           color: rgba(255,255,255,0.3);
@@ -387,7 +387,7 @@ export default function WorkSection() {
 
         /* count badge */
         .wf-count {
-          font-size: 7px;
+          font-size: 8px;
           color: rgba(255,255,255,0.25);
           margin-left: 5px;
           vertical-align: top;
@@ -483,7 +483,7 @@ export default function WorkSection() {
         }
 
         .proj-tag {
-          font-size: 8px;
+          font-size: 9px;
           letter-spacing: 0.25em;
           text-transform: uppercase;
           color: var(--accent);
@@ -499,7 +499,7 @@ export default function WorkSection() {
         }
 
         .proj-year {
-          font-size: 8px;
+          font-size: 10px;
           letter-spacing: 0.2em;
           color: rgba(255,255,255,0.2);
         }
@@ -535,7 +535,7 @@ export default function WorkSection() {
         }
 
         .proj-sub {
-          font-size: 9px;
+          font-size: 10px;
           letter-spacing: 0.15em;
           color: rgba(255,255,255,0.32);
           text-transform: uppercase;
@@ -562,7 +562,7 @@ export default function WorkSection() {
         .proj-card:hover .proj-accent-bar { width: 60px; opacity: 1; }
 
         .proj-cta {
-          font-size: 9px;
+          font-size: 10px;
           letter-spacing: 0.2em;
           text-transform: uppercase;
           color: rgba(255,255,255,0.25);
@@ -591,14 +591,14 @@ export default function WorkSection() {
 
         .wcs-num {
           font-family: 'Bebas Neue', sans-serif;
-          font-size: 36px;
+          font-size: 42px;
           color: var(--text-primary);
           line-height: 1;
           letter-spacing: 0.05em;
         }
 
         .wcs-label {
-          font-size: 8px;
+          font-size: 9px;
           letter-spacing: 0.28em;
           color: rgba(170,125,252,0.5);
           text-transform: uppercase;
