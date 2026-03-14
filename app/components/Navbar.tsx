@@ -117,7 +117,7 @@ export default function Navbar() {
         }
         .bl-logo-name {
           font-family: 'Bebas Neue', sans-serif;
-          font-size: 22px;
+          font-size: 24px;
           letter-spacing: 0.1em;
           color: var(--text-primary);
           line-height: 1;
@@ -158,7 +158,7 @@ export default function Navbar() {
           display: block;
           position: relative;
           padding: 6px 14px;
-          font-size: 11px;
+          font-size: 12px;
           letter-spacing: 0.22em;
           text-transform: uppercase;
           color: rgba(255,255,255,0.4);
@@ -236,7 +236,7 @@ export default function Navbar() {
         }
 
         .clock-tz {
-          font-size: 8px;
+          font-size: 9px;
           letter-spacing: 0.2em;
           color: var(--accent);
           opacity: 0.5;
@@ -400,7 +400,7 @@ export default function Navbar() {
 
         .demo-hero-eyebrow {
           font-family: 'Geist Mono', monospace;
-          font-size: 10px;
+          font-size: 11px;
           letter-spacing: 0.3em;
           text-transform: uppercase;
           color: var(--accent);
