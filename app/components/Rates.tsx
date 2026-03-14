@@ -302,7 +302,7 @@ export default function RatesSection() {
         }
 
         .rates-eyebrow {
-          font-size: 9px;
+          font-size: 10px;
           letter-spacing: 0.35em;
           text-transform: uppercase;
           color: var(--accent);
@@ -325,7 +325,7 @@ export default function RatesSection() {
         }
 
         .rates-sub {
-          font-size: 10px;
+          font-size: 11px;
           letter-spacing: 0.2em;
           color: rgba(255,255,255,0.25);
           text-transform: uppercase;
@@ -398,14 +398,14 @@ export default function RatesSection() {
         }
 
         .oc-emoji {
-          font-size: 14px;
+          font-size: 16px;
           color: var(--accent);
           opacity: 0.8;
           font-style: normal;
         }
 
         .oc-discipline {
-          font-size: 8px;
+          font-size: 9px;
           letter-spacing: 0.3em;
           text-transform: uppercase;
           color: var(--accent);
@@ -425,7 +425,7 @@ export default function RatesSection() {
         }
 
         .oc-tagline {
-          font-size: 9px;
+          font-size: 11px;
           letter-spacing: 0.15em;
           color: rgba(255,255,255,0.28);
           text-transform: uppercase;
@@ -448,7 +448,7 @@ export default function RatesSection() {
           display: flex;
           align-items: center;
           gap: 10px;
-          font-size: 9px;
+          font-size: 10px;
           letter-spacing: 0.14em;
           text-transform: uppercase;
           color: rgba(255,255,255,0.45);
@@ -488,7 +488,7 @@ export default function RatesSection() {
         }
 
         .oc-billing {
-          font-size: 7px;
+          font-size: 8px;
           letter-spacing: 0.25em;
           text-transform: uppercase;
           color: rgba(255,255,255,0.2);
@@ -499,7 +499,7 @@ export default function RatesSection() {
           position: relative;
           padding: 9px 18px;
           font-family: 'Geist Mono', monospace;
-          font-size: 9px;
+          font-size: 10px;
           letter-spacing: 0.22em;
           text-transform: uppercase;
           color: var(--bg-primary);
@@ -587,7 +587,7 @@ export default function RatesSection() {
         }
 
         .bs-eyebrow {
-          font-size: 8px;
+          font-size: 10px;
           letter-spacing: 0.4em;
           text-transform: uppercase;
           color: var(--accent);
@@ -619,7 +619,7 @@ export default function RatesSection() {
         }
 
         .bs-sub {
-          font-size: 9px;
+          font-size: 10px;
           letter-spacing: 0.16em;
           text-transform: uppercase;
           color: rgba(255,255,255,0.28);
@@ -638,7 +638,7 @@ export default function RatesSection() {
           display: flex;
           align-items: flex-start;
           gap: 8px;
-          font-size: 9px;
+          font-size: 10px;
           letter-spacing: 0.13em;
           text-transform: uppercase;
           color: rgba(255,255,255,0.4);
@@ -647,7 +647,7 @@ export default function RatesSection() {
 
         .bs-inc-dot {
           color: var(--accent);
-          font-size: 7px;
+          font-size: 9px;
           flex-shrink: 0;
           margin-top: 2px;
           opacity: 0.7;
@@ -655,7 +655,7 @@ export default function RatesSection() {
 
         /* plan selector */
         .bs-plans-label {
-          font-size: 8px;
+          font-size: 10px;
           letter-spacing: 0.3em;
           text-transform: uppercase;
           color: rgba(255,255,255,0.2);
@@ -717,7 +717,7 @@ export default function RatesSection() {
 
         .bs-plan-meta {
           display: block;
-          font-size: 8px;
+          font-size: 9px;
           letter-spacing: 0.18em;
           text-transform: uppercase;
           color: rgba(255,255,255,0.22);
@@ -754,14 +754,14 @@ export default function RatesSection() {
 
         .bs-stat-val {
           font-family: 'Bebas Neue', sans-serif;
-          font-size: 28px;
+          font-size: 32px;
           letter-spacing: 0.06em;
           color: var(--accent);
           line-height: 1;
         }
 
         .bs-stat-key {
-          font-size: 7px;
+          font-size: 9px;
           letter-spacing: 0.25em;
           text-transform: uppercase;
           color: rgba(255,255,255,0.2);
@@ -775,7 +775,7 @@ export default function RatesSection() {
         }
 
         .bs-price-note {
-          font-size: 7px;
+          font-size: 9px;
           letter-spacing: 0.25em;
           text-transform: uppercase;
           color: rgba(255,255,255,0.18);
@@ -794,7 +794,7 @@ export default function RatesSection() {
           position: relative;
           padding: 12px 24px;
           font-family: 'Geist Mono', monospace;
-          font-size: 9px;
+          font-size: 10px;
           letter-spacing: 0.25em;
           text-transform: uppercase;
           color: var(--bg-primary);
@@ -832,7 +832,7 @@ export default function RatesSection() {
         }
 
         .rates-custom-text {
-          font-size: 9px;
+          font-size: 11px;
           letter-spacing: 0.18em;
           text-transform: uppercase;
           color: rgba(255,255,255,0.2);
@@ -841,7 +841,7 @@ export default function RatesSection() {
         .rates-custom-text strong { color: rgba(255,255,255,0.5); font-weight: 500; }
 
         .rates-custom-link {
-          font-size: 9px;
+          font-size: 10px;
           letter-spacing: 0.22em;
           text-transform: uppercase;
           color: var(--accent);
