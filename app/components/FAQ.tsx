@@ -69,7 +69,10 @@ function useTypewriter(text: string, active: boolean, speed = 10) {
   const frameRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
-    if (!active) { setDisplayed(""); return; }
+    if (!active) {
+      setDisplayed("");
+      return;
+    }
     setDisplayed("");
     let i = 0;
     const tick = () => {
@@ -78,7 +81,9 @@ function useTypewriter(text: string, active: boolean, speed = 10) {
       if (i < text.length) frameRef.current = setTimeout(tick, speed);
     };
     frameRef.current = setTimeout(tick, 60);
-    return () => { if (frameRef.current) clearTimeout(frameRef.current); };
+    return () => {
+      if (frameRef.current) clearTimeout(frameRef.current);
+    };
   }, [active, text, speed]);
 
   return displayed;
@@ -86,14 +91,19 @@ function useTypewriter(text: string, active: boolean, speed = 10) {
 
 // ─── FAQ Row ──────────────────────────────────────────────────────────────────
 
-function FaqRow({ item, index, isOpen, onToggle }: {
+function FaqRow({
+  item,
+  index,
+  isOpen,
+  onToggle,
+}: {
   item: FaqItem;
   index: number;
   isOpen: boolean;
   onToggle: () => void;
 }) {
   const answerText = useTypewriter(item.a, isOpen);
-  const innerRef   = useRef<HTMLDivElement>(null);
+  const innerRef = useRef<HTMLDivElement>(null);
   const [height, setHeight] = useState(0);
 
   useEffect(() => {
@@ -111,7 +121,9 @@ function FaqRow({ item, index, isOpen, onToggle }: {
         <div className="fq-bar-left">
           <span className="fq-idx">
             <span className="fq-idx-path">~/faq</span>
-            <span className="fq-idx-num">[{String(index + 1).padStart(2,"0")}]</span>
+            <span className="fq-idx-num">
+              [{String(index + 1).padStart(2, "0")}]
+            </span>
           </span>
           <span className="fq-tag">{item.tag}</span>
           <span className="fq-question">{item.q}</span>
@@ -149,10 +161,11 @@ export default function FaqSection() {
   const [openId, setOpenId] = useState<number | null>(null);
   const [filter, setFilter] = useState("all");
 
-  const tags    = ["all", ...Array.from(new Set(FAQS.map(f => f.tag)))];
-  const visible = filter === "all" ? FAQS : FAQS.filter(f => f.tag === filter);
+  const tags = ["all", ...Array.from(new Set(FAQS.map((f) => f.tag)))];
+  const visible =
+    filter === "all" ? FAQS : FAQS.filter((f) => f.tag === filter);
 
-  const toggle = (id: number) => setOpenId(prev => prev === id ? null : id);
+  const toggle = (id: number) => setOpenId((prev) => (prev === id ? null : id));
 
   return (
     <>
@@ -215,7 +228,7 @@ export default function FaqSection() {
         }
 
         .fq-eyebrow {
-          font-size: 9px;
+          font-size: 11px;
           letter-spacing: 0.35em;
           text-transform: uppercase;
           color: #AA7DFC;
@@ -238,7 +251,7 @@ export default function FaqSection() {
         }
 
         .fq-sub {
-          font-size: 10px;
+          font-size: 11px;
           letter-spacing: 0.2em;
           color: rgba(255,255,255,0.25);
           text-transform: uppercase;
@@ -259,7 +272,7 @@ export default function FaqSection() {
         .fq-filter-btn {
           padding: 6px 16px;
           font-family: 'Geist Mono', monospace;
-          font-size: 9px;
+          font-size: 11px;
           letter-spacing: 0.22em;
           text-transform: uppercase;
           color: rgba(255,255,255,0.28);
@@ -358,14 +371,14 @@ export default function FaqSection() {
         }
 
         .fq-idx-path {
-          font-size: 8px;
+          font-size: 10px;
           letter-spacing: 0.1em;
           color: rgba(170,125,252,0.3);
           font-family: 'Geist Mono', monospace;
         }
 
         .fq-idx-num {
-          font-size: 9px;
+          font-size: 10px;
           letter-spacing: 0.15em;
           color: #AA7DFC;
           opacity: 0.65;
@@ -375,7 +388,7 @@ export default function FaqSection() {
 
         /* category tag chip */
         .fq-tag {
-          font-size: 7px;
+          font-size: 9px;
           letter-spacing: 0.25em;
           text-transform: uppercase;
           color: rgba(170,125,252,0.3);
@@ -469,13 +482,13 @@ export default function FaqSection() {
         }
 
         .fq-prompt-sym {
-          font-size: 8px;
+          font-size: 10px;
           color: #AA7DFC;
           opacity: 0.65;
         }
 
         .fq-prompt-cmd {
-          font-size: 8px;
+          font-size: 10px;
           letter-spacing: 0.2em;
           color: rgba(170,125,252,0.3);
           font-family: 'Geist Mono', monospace;
@@ -521,7 +534,7 @@ export default function FaqSection() {
         }
 
         .fq-bottom-text {
-          font-size: 9px;
+          font-size: 11px;
           letter-spacing: 0.18em;
           text-transform: uppercase;
           color: rgba(255,255,255,0.22);
@@ -539,7 +552,7 @@ export default function FaqSection() {
           display: inline-block;
           padding: 12px 28px;
           font-family: 'Geist Mono', monospace;
-          font-size: 9px;
+          font-size: 11px;
           letter-spacing: 0.28em;
           text-transform: uppercase;
           color: #110C29;
@@ -576,7 +589,9 @@ export default function FaqSection() {
       `}</style>
 
       <section id="faq">
-        <div className="fq-ghost" aria-hidden>FAQ</div>
+        <div className="fq-ghost" aria-hidden>
+          FAQ
+        </div>
         <div className="fq-glow" />
 
         {/* ── Header ──────────────────────────────── */}
@@ -584,25 +599,32 @@ export default function FaqSection() {
           <div>
             <p className="fq-eyebrow">faq — we read your mind</p>
             <h2 className="fq-title">
-              stuff you're<br />
-              probably<br />
+              stuff you're
+              <br />
+              probably
+              <br />
               <em>wondering</em>
             </h2>
           </div>
           <p className="fq-sub">
-            real answers,<br />
-            not corporate<br />
+            real answers,
+            <br />
+            not corporate
+            <br />
             non-answers.
           </p>
         </div>
 
         {/* ── Filters ─────────────────────────────── */}
         <div className="fq-filters">
-          {tags.map(tag => (
+          {tags.map((tag) => (
             <button
               key={tag}
               className={`fq-filter-btn${filter === tag ? " fq-filter-btn--active" : ""}`}
-              onClick={() => { setFilter(tag); setOpenId(null); }}
+              onClick={() => {
+                setFilter(tag);
+                setOpenId(null);
+              }}
             >
               <span>{tag}</span>
             </button>
@@ -626,8 +648,8 @@ export default function FaqSection() {
         <div className="fq-bottom">
           <p className="fq-bottom-text">
             still got a question that's not up there?{" "}
-            <strong>just message us directly</strong> — we reply same day,
-            no autoresponder, actual humans.
+            <strong>just message us directly</strong> — we reply same day, no
+            autoresponder, actual humans.
           </p>
           <a href="#contact" className="fq-bottom-cta">
             <span>ask us anything →</span>
