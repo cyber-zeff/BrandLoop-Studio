@@ -17,7 +17,8 @@ interface Testimonial {
 const TESTIMONIALS: Testimonial[] = [
   {
     id: 1,
-    quote: "bro they just UNDERSTOOD the assignment. sent a vibe board on monday, had a full brand kit by friday. no cap the logo alone made our whole team stop and go 'wait that's actually fire'",
+    quote:
+      "bro they just UNDERSTOOD the assignment. sent a vibe board on monday, had a full brand kit by friday. no cap the logo alone made our whole team stop and go 'wait that's actually fire'",
     name: "Zara Ahmed",
     handle: "@zaraahmedd",
     role: "Founder, Void Apparel",
@@ -26,7 +27,8 @@ const TESTIMONIALS: Testimonial[] = [
   },
   {
     id: 2,
-    quote: "we were lowkey skeptical because we'd been burned before by agencies that over-promise. brandloop actually delivered ahead of schedule?? our saas conversion went up 34% after the new landing page. still shook.",
+    quote:
+      "we were lowkey skeptical because we'd been burned before by agencies that over-promise. brandloop actually delivered ahead of schedule?? our saas conversion went up 34% after the new landing page. still shook.",
     name: "Karan Mehta",
     handle: "@karanbuilds",
     role: "CEO, Clerq",
@@ -35,7 +37,8 @@ const TESTIMONIALS: Testimonial[] = [
   },
   {
     id: 3,
-    quote: "the reels they made for us hit different. like genuinely different from every other agency edit we've seen — the pacing, the cuts, the music sync. our instagram engagement literally tripled in the first month.",
+    quote:
+      "the reels they made for us hit different. like genuinely different from every other agency edit we've seen — the pacing, the cuts, the music sync. our instagram engagement literally tripled in the first month.",
     name: "Nadia Yusuf",
     handle: "@nadiayusuf_",
     role: "Head of Marketing, ByteSnack",
@@ -44,7 +47,8 @@ const TESTIMONIALS: Testimonial[] = [
   },
   {
     id: 4,
-    quote: "went with the full brandstack deal and honestly it was the best decision for our launch. one team handled everything — no briefing 4 different people, no miscommunication. the brand feels so cohesive it's scary.",
+    quote:
+      "went with the full brandstack deal and honestly it was the best decision for our launch. one team handled everything — no briefing 4 different people, no miscommunication. the brand feels so cohesive it's scary.",
     name: "Omar Siddiqui",
     handle: "@omarsidq",
     role: "Co-founder, Flo Dashboard",
@@ -53,7 +57,8 @@ const TESTIMONIALS: Testimonial[] = [
   },
   {
     id: 5,
-    quote: "they redesigned our entire packaging and the response at launch was insane. customers were literally posting unboxings without us even asking. the design did the marketing for us.",
+    quote:
+      "they redesigned our entire packaging and the response at launch was insane. customers were literally posting unboxings without us even asking. the design did the marketing for us.",
     name: "Lena Strauss",
     handle: "@lenastrauss",
     role: "Product Lead, Pulse Energy",
@@ -62,7 +67,8 @@ const TESTIMONIALS: Testimonial[] = [
   },
   {
     id: 6,
-    quote: "i was ready to just use a template for our site but my co-founder convinced me to try brandloop. genuinely cannot imagine where we'd be with a generic site. the attention to detail is on another level.",
+    quote:
+      "i was ready to just use a template for our site but my co-founder convinced me to try brandloop. genuinely cannot imagine where we'd be with a generic site. the attention to detail is on another level.",
     name: "Tariq Noor",
     handle: "@tariqnoor_dev",
     role: "CTO, Orbit CMS",
@@ -71,7 +77,8 @@ const TESTIMONIALS: Testimonial[] = [
   },
   {
     id: 7,
-    quote: "okay the brand film?? i cried a little. we showed it at our investor deck and two people asked about it after. it captured exactly what we were trying to say in 60 seconds. absolute magic.",
+    quote:
+      "okay the brand film?? i cried a little. we showed it at our investor deck and two people asked about it after. it captured exactly what we were trying to say in 60 seconds. absolute magic.",
     name: "Priya Sharma",
     handle: "@priyabuilds",
     role: "Founder, Solstice",
@@ -85,7 +92,11 @@ const TESTIMONIALS: Testimonial[] = [
 function Stars() {
   return (
     <div className="pr-stars">
-      {[1,2,3,4,5].map(i => <span key={i} className="pr-star">★</span>)}
+      {[1, 2, 3, 4, 5].map((i) => (
+        <span key={i} className="pr-star">
+          ★
+        </span>
+      ))}
     </div>
   );
 }
@@ -93,7 +104,11 @@ function Stars() {
 // ─── Card ─────────────────────────────────────────────────────────────────────
 
 function TestiCard({
-  t, stackPos, total, onClick, isLeaving,
+  t,
+  stackPos,
+  total,
+  onClick,
+  isLeaving,
 }: {
   t: Testimonial;
   stackPos: number;
@@ -103,8 +118,8 @@ function TestiCard({
 }) {
   const offsetY = stackPos * 10;
   const offsetX = stackPos * 5;
-  const scale   = 1 - stackPos * 0.04;
-  const zIndex  = total - stackPos;
+  const scale = 1 - stackPos * 0.04;
+  const zIndex = total - stackPos;
   const opacity = stackPos > 2 ? 0 : 1 - stackPos * 0.18;
 
   return (
@@ -126,7 +141,9 @@ function TestiCard({
       </div>
 
       <div className="pr-quote-wrap">
-        <span className="pr-open-q" aria-hidden>"</span>
+        <span className="pr-open-q" aria-hidden>
+          "
+        </span>
         <p className="pr-quote">{t.quote}</p>
       </div>
 
@@ -142,7 +159,9 @@ function TestiCard({
       </div>
 
       {stackPos === 0 && (
-        <div className="pr-hint">tap to read next <span className="pr-hint-arr">→</span></div>
+        <div className="pr-hint">
+          tap to read next <span className="pr-hint-arr">→</span>
+        </div>
       )}
 
       <div className="pr-bottom-line" />
@@ -153,16 +172,28 @@ function TestiCard({
 // ─── Marquee ──────────────────────────────────────────────────────────────────
 
 const MARQUEE_WORDS = [
-  "loved it","fire","shipped on time","no cap","actually different",
-  "goated","came through","10/10",
-  "loved it","fire","shipped on time","no cap","actually different",
-  "goated","came through","10/10",
+  "loved it",
+  "fire",
+  "shipped on time",
+  "no cap",
+  "actually different",
+  "goated",
+  "came through",
+  "10/10",
+  "loved it",
+  "fire",
+  "shipped on time",
+  "no cap",
+  "actually different",
+  "goated",
+  "came through",
+  "10/10",
 ];
 
 // ─── Main ─────────────────────────────────────────────────────────────────────
 
 export default function PraiseSection() {
-  const [deck, setDeck]       = useState(TESTIMONIALS);
+  const [deck, setDeck] = useState(TESTIMONIALS);
   const [leaving, setLeaving] = useState(false);
   const autoRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -170,19 +201,24 @@ export default function PraiseSection() {
     if (leaving) return;
     setLeaving(true);
     setTimeout(() => {
-      setDeck(prev => { const [first, ...rest] = prev; return [...rest, first]; });
+      setDeck((prev) => {
+        const [first, ...rest] = prev;
+        return [...rest, first];
+      });
       setLeaving(false);
     }, 380);
   }, [leaving]);
 
   useEffect(() => {
     autoRef.current = setTimeout(advance, 5000);
-    return () => { if (autoRef.current) clearTimeout(autoRef.current); };
+    return () => {
+      if (autoRef.current) clearTimeout(autoRef.current);
+    };
   }, [deck, advance]);
 
   const jumpTo = (idx: number) => {
-    const target     = TESTIMONIALS[idx];
-    const currentIdx = deck.findIndex(t => t.id === target.id);
+    const target = TESTIMONIALS[idx];
+    const currentIdx = deck.findIndex((t) => t.id === target.id);
     setDeck([...deck.slice(currentIdx), ...deck.slice(0, currentIdx)]);
   };
 
@@ -236,7 +272,7 @@ export default function PraiseSection() {
         }
 
         .pr-eyebrow {
-          font-size: 9px;
+          font-size: 11px;
           letter-spacing: 0.35em;
           text-transform: uppercase;
           color: #AA7DFC;
@@ -259,7 +295,7 @@ export default function PraiseSection() {
         }
 
         .pr-sub {
-          font-size: 10px;
+          font-size: 11px;
           letter-spacing: 0.2em;
           color: rgba(255,255,255,0.25);
           text-transform: uppercase;
@@ -344,7 +380,7 @@ export default function PraiseSection() {
         }
 
         .pr-service-tag {
-          font-size: 8px;
+          font-size: 10px;
           letter-spacing: 0.25em;
           text-transform: uppercase;
           color: #AA7DFC;
@@ -373,11 +409,10 @@ export default function PraiseSection() {
         }
 
         .pr-quote {
-          font-size: 11px;
+          font-size: 15px;
           letter-spacing: 0.05em;
           color: rgba(255,255,255,0.62);
           line-height: 1.8;
-          font-style: italic;
         }
 
         .pr-author {
@@ -407,7 +442,7 @@ export default function PraiseSection() {
         }
 
         .pr-name {
-          font-size: 10px;
+          font-size: 12px;
           letter-spacing: 0.18em;
           text-transform: uppercase;
           color: #fff;
@@ -415,7 +450,7 @@ export default function PraiseSection() {
         }
 
         .pr-role {
-          font-size: 8px;
+          font-size: 10px;
           letter-spacing: 0.15em;
           text-transform: uppercase;
           color: rgba(255,255,255,0.25);
@@ -423,14 +458,14 @@ export default function PraiseSection() {
         }
 
         .pr-handle {
-          font-size: 8px;
+          font-size: 10px;
           letter-spacing: 0.1em;
           color: #AA7DFC;
           opacity: 0.5;
         }
 
         .pr-hint {
-          font-size: 8px;
+          font-size: 10px;
           letter-spacing: 0.22em;
           text-transform: uppercase;
           color: rgba(255,255,255,0.16);
@@ -494,7 +529,7 @@ export default function PraiseSection() {
         }
 
         .pr-dot-name {
-          font-size: 9px;
+          font-size: 11px;
           letter-spacing: 0.2em;
           text-transform: uppercase;
           color: rgba(255,255,255,0.25);
@@ -504,7 +539,7 @@ export default function PraiseSection() {
         .pr-dot-row--active .pr-dot-name { color: rgba(255,255,255,0.75); }
 
         .pr-dot-svc {
-          font-size: 7px;
+          font-size: 9px;
           letter-spacing: 0.18em;
           text-transform: uppercase;
           color: rgba(170,125,252,0.2);
@@ -551,7 +586,7 @@ export default function PraiseSection() {
         }
 
         .pr-stat-lbl {
-          font-size: 7px;
+          font-size: 9px;
           letter-spacing: 0.25em;
           text-transform: uppercase;
           color: rgba(255,255,255,0.2);
@@ -593,7 +628,7 @@ export default function PraiseSection() {
 
         .pr-marquee-item {
           font-family: 'Bebas Neue', sans-serif;
-          font-size: 13px;
+          font-size: 14px;
           letter-spacing: 0.2em;
           text-transform: uppercase;
           color: rgba(170,125,252,0.2);
@@ -614,20 +649,25 @@ export default function PraiseSection() {
           <div>
             <p className="pr-eyebrow">praise — straight from the clients</p>
             <h2 className="pr-title">
-              they said<br />what they<br /><em>said</em>
+              they said
+              <br />
+              what they
+              <br />
+              <em>said</em>
             </h2>
           </div>
           <p className="pr-sub">
-            no cherry-picking,<br />
+            no cherry-picking,
+            <br />
             no paid reviews —<br />
-            just actual people<br />
+            just actual people
+            <br />
             we actually helped.
           </p>
         </div>
 
         {/* Body */}
         <div className="pr-body">
-
           {/* Stack */}
           <div className="pr-stack" onClick={advance}>
             {[...deck].reverse().map((t, revIdx) => {
@@ -647,7 +687,6 @@ export default function PraiseSection() {
 
           {/* Right panel */}
           <div className="pr-right">
-
             <div className="pr-dots">
               {TESTIMONIALS.map((t, i) => {
                 const isActive = deck[0]?.id === t.id;
@@ -660,7 +699,9 @@ export default function PraiseSection() {
                     <div className="pr-pip" />
                     <span className="pr-dot-name">{t.name}</span>
                     <span className="pr-dot-svc">{t.serviceLabel}</span>
-                    {isActive && <div className="pr-dot-progress" key={`${t.id}-p`} />}
+                    {isActive && (
+                      <div className="pr-dot-progress" key={`${t.id}-p`} />
+                    )}
                   </div>
                 );
               })}
@@ -668,9 +709,9 @@ export default function PraiseSection() {
 
             <div className="pr-stats">
               {[
-                { num: "7+",    lbl: "client stories" },
-                { num: "★★★★★", lbl: "avg rating"     },
-                { num: "100%",  lbl: "would refer us"  },
+                { num: "7+", lbl: "client stories" },
+                { num: "★★★★★", lbl: "avg rating" },
+                { num: "100%", lbl: "would refer us" },
               ].map((s, i) => (
                 <div key={i} className="pr-stat">
                   <div className="pr-stat-num">{s.num}</div>
@@ -678,7 +719,6 @@ export default function PraiseSection() {
                 </div>
               ))}
             </div>
-
           </div>
         </div>
 
@@ -692,7 +732,6 @@ export default function PraiseSection() {
             ))}
           </div>
         </div>
-
       </section>
     </>
   );
