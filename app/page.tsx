@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import ContactSection from "./components/Contact";
 import FaqSection from "./components/FAQ";
