@@ -215,7 +215,7 @@ export default function Footer() {
 
         .ft-marquee-item {
           font-family: 'Bebas Neue', sans-serif;
-          font-size: 13px;
+          font-size: 14px;
           letter-spacing: 0.25em;
           text-transform: uppercase;
           color: rgba(170,125,252,0.16);
@@ -267,21 +267,21 @@ export default function Footer() {
 
         .ft-logo-name {
           font-family: 'Bebas Neue', sans-serif;
-          font-size: 28px;
+          font-size: 32px;
           letter-spacing: 0.1em;
           color: #fff;
           line-height: 1;
         }
 
         .ft-logo-sub {
-          font-size: 8px;
+          font-size: 10px;
           letter-spacing: 0.35em;
           color: rgba(255,255,255,0.28);
           text-transform: uppercase;
         }
 
         .ft-tagline {
-          font-size: 9px;
+          font-size: 10px;
           letter-spacing: 0.15em;
           color: rgba(255,255,255,0.28);
           text-transform: uppercase;
@@ -296,7 +296,7 @@ export default function Footer() {
           gap: 10px;
           padding: 12px 22px;
           font-family: 'Geist Mono', monospace;
-          font-size: 9px;
+          font-size: 10px;
           letter-spacing: 0.25em;
           text-transform: uppercase;
           color: #110C29;
@@ -344,14 +344,14 @@ export default function Footer() {
         }
 
         .ft-clock-label {
-          font-size: 7px;
+          font-size: 8px;
           letter-spacing: 0.3em;
           color: rgba(255,255,255,0.25);
           text-transform: uppercase;
         }
 
         .ft-clock-val {
-          font-size: 10px;
+          font-size: 11px;
           letter-spacing: 0.1em;
           color: rgba(255,255,255,0.5);
           font-variant-numeric: tabular-nums;
@@ -361,7 +361,7 @@ export default function Footer() {
         .ft-nav-col { display: flex; flex-direction: column; gap: 20px; }
 
         .ft-nav-heading {
-          font-size: 7px;
+          font-size: 10px;
           letter-spacing: 0.4em;
           text-transform: uppercase;
           color: rgba(255,255,255,0.25);
@@ -378,7 +378,7 @@ export default function Footer() {
         }
 
         .ft-nav-link {
-          font-size: 10px;
+          font-size: 11px;
           letter-spacing: 0.15em;
           text-transform: uppercase;
           color: rgba(255,255,255,0.3);
@@ -441,7 +441,7 @@ export default function Footer() {
         }
 
         .ft-stat-label {
-          font-size: 7px;
+          font-size: 9px;
           letter-spacing: 0.28em;
           text-transform: uppercase;
           color: rgba(255,255,255,0.22);
@@ -461,7 +461,7 @@ export default function Footer() {
         }
 
         .ft-bottom-copy {
-          font-size: 8px;
+          font-size: 9px;
           letter-spacing: 0.2em;
           text-transform: uppercase;
           color: rgba(170,125,252,0.2);
@@ -484,7 +484,7 @@ export default function Footer() {
           display: flex;
           align-items: center;
           gap: 8px;
-          font-size: 8px;
+          font-size: 9px;
           letter-spacing: 0.25em;
           text-transform: uppercase;
           color: rgba(255,255,255,0.25);
