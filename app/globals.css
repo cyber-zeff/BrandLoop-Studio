@@ -4,9 +4,9 @@
 
 :root {
   --background: #110c29;
-  --foreground: #050505;
+  /* --foreground: #050505; */
   --priColor: #ffffff;
-  --secColor: #aa7dfc;
+  /* --secColor: #aa7dfc; */
 }
 
 * {
